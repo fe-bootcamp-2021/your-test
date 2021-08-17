@@ -2,14 +2,22 @@ import React from "react";
 import classNames from "classnames";
 
 const style = classNames(
-  "outline-none",
+  "bg-gray-100",
+  "border",
+  "border-gray-300",
   "p-2",
-  "border-b-4 blue-900",
-  "bg-transparent",
-  "w-96"
+  "mb-4",
+  "outline-none"
 );
 
-export default function Input({ type, name, placeholder, value, onChange }) {
+export default function Input({
+  type,
+  name,
+  placeholder,
+  value,
+  spellCheck,
+  onChange,
+}) {
   return (
     <input
       className={style}
@@ -17,6 +25,7 @@ export default function Input({ type, name, placeholder, value, onChange }) {
       name={name}
       placeholder={placeholder}
       value={value}
+      spellCheck={spellCheck}
       onChange={onChange}
     />
   );
