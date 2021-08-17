@@ -7,6 +7,7 @@ const quetionSection = classNames();
 
 export default function QuetionForm() {
   const [quetion, setQuetion] = useState("");
+  const [type, setType] = useState("");
 
   return (
     <div className="fixed top-1/3 w-screen flex flex-col justify-center items-center">
@@ -23,6 +24,13 @@ export default function QuetionForm() {
           value={quetion}
           type="text"
         />
+
+        <select value="Choose type" onChange={setType(value)}>
+          <option value="text">Text</option>
+          <option value="radio">One of the list</option>
+          <option value="checkbox">Several from the list</option>
+          <option value="list">Drop-down list</option>
+        </select>
 
         <div className="buttons flex">
           <Button
