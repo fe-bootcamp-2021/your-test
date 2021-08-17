@@ -25,6 +25,7 @@
     "no-unused-expressions": "off",
     "react/react-in-jsx-scope": "off",
     "react/self-closing-comp": "off",
+    "react/jsx-props-no-spreading": "off",
     // "eslint object-curly-newline": ["error", { "consistent": false }],
     "prettier/prettier": [
       "error",
