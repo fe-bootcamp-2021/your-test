@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 
-export default function Button({ value, color }) {
+export default function Button({ value, color, handleClick }) {
   const buttonStyle = classNames(
     "px-5",
     "py-5",
@@ -10,5 +10,9 @@ export default function Button({ value, color }) {
     "rounded-xl",
     "md:w-40"
   );
-  return <button className={buttonStyle}>{value}</button>;
+  return (
+    <button className={buttonStyle} onClick={handleClick}>
+      {value}
+    </button>
+  );
 }
