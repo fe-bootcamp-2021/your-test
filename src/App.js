@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+import LoginPage from "./Pages/LoginPage";
+import UserPage from "./Pages/UserPage";
+import RegisterPage from "./Pages/RegisterPage";
+import { AuthProvider } from "./contexts/AuthContext";
 
-function App() {
+export default function App() {
+  // useEffect(() => {
+  //   axios.post(
+  //     "https://get-forms-5e80d-default-rtdb.europe-west1.firebasedatabase.app/tests/.json",
+  //     {
+  //       name: "aaa",
+  //       age: 99,
+  //     }
+  //   );
+
+  //   axios
+  //     .get(
+  //       `https://get-forms-5e80d-default-rtdb.europe-west1.firebasedatabase.app/tests/-MhJNFOsJ_tUHl_4uUXZ.json`
+  //     )
+  //     .then((data) => console.log(data));
+  // }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AuthProvider>
+        <Router>
+          <Switch>
+            <Route path="/loginPage">
+              <LoginPage />
+            </Route>
+            <Route exact path="/">
+              <RegisterPage />
+            </Route>
+            <Route exact path="/user">
+              <UserPage />
+            </Route>
+          </Switch>
+        </Router>
+      </AuthProvider>
+    </>
   );
 }
-
-export default App;
