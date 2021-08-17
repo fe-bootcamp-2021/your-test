@@ -1,13 +1,23 @@
 import { useState } from "react";
 import SubmitButton from "./Button/SubmitButton";
 
-export default function TestPopup() {
+export default function TestPopup({ getTestPopup }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  function closePopup() {
+    getTestPopup((prev) => !prev);
+  }
+
+  function sendPopupInfo() {
+    console.log(title);
+    console.log(description);
+    getTestPopup((prev) => !prev);
+  }
+
   return (
     <>
-      <div className="fixed top-1/3 w-screen flex flex-col justify-center items-center">
+      <div className="fixed w-screen flex flex-col justify-center items-center">
         <div className="w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
           Text Info
         </div>
@@ -30,8 +40,8 @@ export default function TestPopup() {
             }}
           />
           <div className="buttons flex justify-end">
-            <SubmitButton value="Cancel" />
-            <SubmitButton value="Create" />
+            <SubmitButton value="Cancel" onClick={closePopup} />
+            <SubmitButton value="Create" onClick={sendPopupInfo} />
           </div>
         </div>
       </div>
