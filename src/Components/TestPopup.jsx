@@ -10,8 +10,6 @@ export default function TestPopup({ getTestPopup }) {
   }
 
   function sendPopupInfo() {
-    console.log(title);
-    console.log(description);
     getTestPopup((prev) => !prev);
   }
 

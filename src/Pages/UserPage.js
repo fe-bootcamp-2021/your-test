@@ -6,7 +6,6 @@ import { useAuth } from "../contexts/AuthContext";
 export default function UserPage() {
   const history = useHistory();
   const { signOut } = useAuth();
-  console.log(signOut);
 
   return (
     <>
