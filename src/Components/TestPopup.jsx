@@ -1,25 +1,57 @@
 import { useState } from "react";
+import axios from "axios";
 import Button from "./Button";
+import Popup from "./Popup";
+import { useAuth } from "../contexts/AuthContext";
 
-export default function TestPopup({ getTestPopup }) {
+export default function TestPopup({
+  getTestPopup,
+  setMessagePopup,
+  setIsAddSuccess,
+}) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+
+  const { currentUser } = useAuth();
+  const curentUserId = JSON.parse(JSON.stringify(currentUser.uid));
 
   function closePopup() {
     getTestPopup((prev) => !prev);
   }
 
-  function sendPopupInfo() {
-    console.log(title);
-    console.log(description);
-    getTestPopup((prev) => !prev);
+  function sendTestInfo() {
+    if (title !== "") {
+      Promise.resolve({
+        testTitle: title,
+        testDescription: description,
+        userId: curentUserId,
+      }).then((sendableInfo) => {
+        const sendToBase = axios
+          .post(
+            "https://get-forms-5e80d-default-rtdb.europe-west1.firebasedatabase.app/tests/.json",
+            sendableInfo
+          )
+          .then(() => {
+            getTestPopup((prev) => !prev);
+            setIsAddSuccess(true);
+            setMessagePopup({
+              message: "Created successfully",
+              isError: false,
+            });
+          });
+      });
+
+      return true;
+    }
+    setMessagePopup({ message: "Title field is empty", isError: true });
+    return false;
   }
 
   return (
     <>
       <div className="fixed w-screen flex flex-col justify-center items-center">
         <div className="w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
-          Text Info
+          Test Info
         </div>
         <div className="w-1/2 editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl bg-gray-200">
           <input
@@ -41,7 +73,7 @@ export default function TestPopup({ getTestPopup }) {
           />
           <div className="buttons flex justify-end">
             <Button buttonName="Cancel" color="red" onClick={closePopup} />
-            <Button buttonName="Create" color="blue" onClick={sendPopupInfo} />
+            <Button buttonName="Create" color="blue" onClick={sendTestInfo} />
           </div>
         </div>
       </div>

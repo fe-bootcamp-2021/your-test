@@ -9,7 +9,8 @@ export default function Button({ buttonName, color, ...attr }) {
     `border-${color}-500`,
     `bg-${color}-400`,
     "rounded-xl",
-    "md:w-40"
+    "md:w-40",
+    "m-1"
   );
   return (
     <button className={buttonStyle} {...attr}>
