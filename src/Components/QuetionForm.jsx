@@ -10,8 +10,8 @@ export default function QuetionForm() {
   // const [type, setType] = useState("");
   const [answerSection, setAnswerSection] = useState({
     type: "text",
-    answer: [],
-    correctAnswer: "",
+    answer: [1, 2],
+    correctAnswer: "srgted",
   });
 
   const handleSelect = ({ target }) => {
@@ -21,8 +21,8 @@ export default function QuetionForm() {
     });
   };
 
-  const handleAddAnswerSection = (val) => (e) => {
-    e.stopPropagation();
+  const handleCreateQuetion = () => {
+    console.log({ quetion, answerSection });
   };
 
   return (
@@ -66,9 +66,9 @@ export default function QuetionForm() {
         ) : (
           <Input
             placeholder="Enter your text"
-            onChange={({ target }) => {
-              handleAddAnswerSection(target.value);
-            }}
+            // onChange={({ target }) => {
+            //   handleAddAnswerSection(target.value);
+            // }}
             type="text"
           />
         )}
@@ -76,11 +76,12 @@ export default function QuetionForm() {
         <div className="buttons flex">
           <Button
             buttonName="Cancel"
-            // onClick={}
+            // onClick={            }}
           />
           <Button
             buttonName="Create"
-            // onClick={}
+            color="red"
+            onClick={handleCreateQuetion}
           />
         </div>
       </div>
