@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 import Button from "./Button";
 import TestPopup from "./TestPopup";
@@ -44,6 +44,7 @@ export default function UserProfile() {
           return tableData;
         })
         .then((tableData) => {
+          console.log("bob");
           const getCurrentUserTests = tableData.data.filter(
             (elem) => elem[1].userId === tableData.currentUserId
           );
