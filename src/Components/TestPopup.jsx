@@ -45,6 +45,7 @@ export default function TestPopup({
     }
     setMessagePopup({ message: "Title field is empty", isError: true });
     return false;
+
   }
 
   return (
