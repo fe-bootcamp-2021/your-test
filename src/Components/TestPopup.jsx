@@ -72,8 +72,18 @@ export default function TestPopup({
             }}
           />
           <div className="buttons flex justify-end">
-            <Button buttonName="Cancel" color="red" onClick={closePopup} />
-            <Button buttonName="Create" color="blue" onClick={sendTestInfo} />
+            <Button
+              buttonName="Cancel"
+              color="red"
+              width="1/4"
+              onClick={closePopup}
+            />
+            <Button
+              buttonName="Create"
+              color="blue"
+              width="1/4"
+              onClick={sendTestInfo}
+            />
           </div>
         </div>
       </div>

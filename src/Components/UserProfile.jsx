@@ -55,10 +55,10 @@ export default function UserProfile() {
 
   return (
     <div className="flex" style={{ minHeight: "92vh" }}>
-      {messagePopup ? <Popup {...messagePopup} /> : null}
+      {messagePopup && <Popup {...messagePopup} />}
       <div className="min-h-full border-solid border-2 border-gray-100 w-2/12 shadow-xl">
         <Button buttonName="Create Test" color="green" onClick={handleClick} />
-        <div>{currentUser ? JSON.stringify(currentUser.email) : null}</div>
+        <div>{currentUser && currentUser.email}</div>
         {Object.keys(currentUserTests).length > 0
           ? Object.values(currentUserTests).map((elem) => (
               <Button
@@ -86,21 +86,19 @@ export default function UserProfile() {
           : null}
       </div>
       <div className="min-h-full w-10/12 border-solid border-black flex items-center justify-center">
-        {isTestPopup ? (
+        {isTestPopup && (
           <TestPopup
             getTestPopup={setIsTestPopup}
             setMessagePopup={setMessagePopup}
             setIsAddSuccess={setIsAddSuccess}
           />
-        ) : null}
-        {isTestPaper && Object.keys(testPaperData).length > 0 ? (
+        )}
+        {isTestPaper && Object.keys(testPaperData).length > 0 && (
           <TestPaper
             testId={testPaperData.testId}
             testInfo={testPaperData.testInfo}
           />
-        ) : null}
-        {/* getTestPaper = {setIsTestPaper}
-       setMessagePopup = {setMessagePopup} */}
+        )}
       </div>
     </div>
   );
