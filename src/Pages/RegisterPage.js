@@ -1,7 +1,7 @@
 import RegistrationForm from "../components/RegisterForm";
 import Header from "../components/Header";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <>
       <Header>
