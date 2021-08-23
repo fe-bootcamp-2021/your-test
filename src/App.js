@@ -1,6 +1,4 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useEffect } from "react";
-import axios from "axios";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import RegisterPage from "./pages/RegisterPage";
