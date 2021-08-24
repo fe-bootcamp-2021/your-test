@@ -33,12 +33,26 @@ export default function RadioQuetion({ setAnswerSection, answerSection }) {
     });
   };
 
+  const handleCorrectAnswer = ({ target }) => {
+    setAnswerSection((prevState) => {
+      return {
+        ...prevState,
+        correctAnswer: target.value,
+      };
+    });
+  };
+
   return (
     <>
       {answerSection.answer.map((e, i) => {
         return (
           <div>
-            <Input name="asdd" value={e} type="radio" />
+            <Input
+              name="asdd"
+              value={e}
+              type="radio"
+              onChange={handleCorrectAnswer}
+            />
             <Input type="text" value={e} onChange={handleChange(i)} />
           </div>
         );
