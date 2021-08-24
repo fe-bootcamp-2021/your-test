@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import Button from "./Button";
 import Input from "./Input";
+import RadioQuetion from "./RadioQuetion";
 
 const quetionSection = classNames();
 
 export default function QuetionForm() {
-  const [quetion, setQuetion] = useState("");
-  // const [type, setType] = useState("");
   const [answerSection, setAnswerSection] = useState({
+    quetion: "",
     type: "text",
     answer: [1, 2],
     correctAnswer: "srgted",
@@ -22,7 +22,7 @@ export default function QuetionForm() {
   };
 
   const handleCreateQuetion = () => {
-    console.log({ quetion, answerSection });
+    console.log({ answerSection });
   };
 
   return (
@@ -33,10 +33,10 @@ export default function QuetionForm() {
       <div className="w-1/2 editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl bg-gray-200">
         <Input
           placeholder="Quetion"
-          onChange={(e) => {
-            setQuetion(e.target.value);
-          }}
-          value={quetion}
+          // onChange={(e) => {
+          //   setQuetion(e.target.value);
+          // }}
+          value={answerSection.quetion}
           type="text"
         />
 
@@ -48,21 +48,7 @@ export default function QuetionForm() {
         </select>
 
         {answerSection.type === "radio" || answerSection.type === "checkbox" ? (
-          <>
-            <div>
-              <Input
-                // onChange={(e) => {
-                //   setQuetion(e.target.value);
-                // }}
-                name="asdd"
-                value="hi"
-                type={answerSection.type}
-              />
-              {/* <label htmlFor="asdd" >Email</label> */}
-            </div>
-
-            {/* <Button buttonName="Add" onClick={handleAddAnswerSection(type)} /> */}
-          </>
+          <RadioQuetion />
         ) : (
           <Input
             placeholder="Enter your text"
