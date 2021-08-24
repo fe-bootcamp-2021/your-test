@@ -10,8 +10,8 @@ export default function QuetionForm() {
   const [answerSection, setAnswerSection] = useState({
     quetion: "",
     type: "text",
-    answer: [1, 2],
-    correctAnswer: "srgted",
+    answer: [],
+    correctAnswer: [],
     point: 0,
   });
 
@@ -29,8 +29,17 @@ export default function QuetionForm() {
     console.log({ answerSection });
   };
 
+  const handlePoint = ({ target }) => {
+    setAnswerSection((prevState) => {
+      return {
+        ...prevState,
+        point: target.value,
+      };
+    });
+  };
+
   return (
-    <div className="fixed top-1/3 w-screen flex flex-col justify-center items-center">
+    <div className=" top-1/3 w-screen flex flex-col justify-center items-center">
       <div className="w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
         Create quetion
       </div>
@@ -53,19 +62,28 @@ export default function QuetionForm() {
           <option value="list">Drop-down list</option>
         </select>
 
-        {answerSection.type === "radio" || answerSection.type === "checkbox" ? (
-          <RadioQuetion
-            setAnswerSection={setAnswerSection}
-            answerSection={answerSection}
-          />
+        {answerSection.type === "text" ? (
+          <Input placeholder="Enter your text" disabled type="text" />
         ) : (
-          <Input
-            placeholder="Enter your text"
-            // onChange={({ target }) => {
-            //   handleAddAnswerSection(target.value);
-            // }}
-            type="text"
-          />
+          <>
+            <RadioQuetion
+              setAnswerSection={setAnswerSection}
+              answerSection={answerSection}
+            />
+            <span>Point</span>
+            <select value={answerSection.point} onChange={handlePoint}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </>
         )}
 
         <div className="buttons flex">
