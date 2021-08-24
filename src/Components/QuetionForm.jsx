@@ -33,9 +33,11 @@ export default function QuetionForm() {
       <div className="w-1/2 editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl bg-gray-200">
         <Input
           placeholder="Quetion"
-          // onChange={(e) => {
-          //   setQuetion(e.target.value);
-          // }}
+          onChange={({ target }) => {
+            setAnswerSection((prevState) => {
+              return { ...prevState, quetion: target.value };
+            });
+          }}
           value={answerSection.quetion}
           type="text"
         />
@@ -48,7 +50,10 @@ export default function QuetionForm() {
         </select>
 
         {answerSection.type === "radio" || answerSection.type === "checkbox" ? (
-          <RadioQuetion />
+          <RadioQuetion
+            setAnswerSection={setAnswerSection}
+            answerSection={answerSection}
+          />
         ) : (
           <Input
             placeholder="Enter your text"
