@@ -17,8 +17,6 @@ export default function RadioQuetion({ setAnswerSection, answerSection }) {
       return {
         ...prevState,
         answer: answerSection.answer.filter((el) => {
-          console.log(val);
-
           return el !== val;
         }),
       };
@@ -36,14 +34,14 @@ export default function RadioQuetion({ setAnswerSection, answerSection }) {
     });
   };
 
-  const handlePoint = ({ target }) => {
-    setAnswerSection((prevState) => {
-      return {
-        ...prevState,
-        point: target.value,
-      };
-    });
-  };
+  // const handlePoint = ({ target }) => {
+  //   setAnswerSection((prevState) => {
+  //     return {
+  //       ...prevState,
+  //       point: target.value,
+  //     };
+  //   });
+  // };
 
   const handleCorrectAnswer = ({ target }) => {
     setAnswerSection((prevState) => {
@@ -71,7 +69,7 @@ export default function RadioQuetion({ setAnswerSection, answerSection }) {
         );
       })}
       <Button buttonName="Add" onClick={addAnswer} />
-      <span>Point</span>
+      {/* <span>Point</span>
       <select value={answerSection.point} onChange={handlePoint}>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -83,7 +81,7 @@ export default function RadioQuetion({ setAnswerSection, answerSection }) {
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option>
-      </select>
+      </select> */}
     </>
   );
 }
