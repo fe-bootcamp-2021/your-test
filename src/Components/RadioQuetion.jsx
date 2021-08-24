@@ -1,27 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Button from "./Button";
 import Input from "./Input";
 
-export default function RadioQuetion() {
-  const [answer, setAnswer] = useState(["asdd", "asdd", "assdf"]);
-
+export default function RadioQuetion({ setAnswerSection, answerSection }) {
   const addAnswer = () => {
-    setAnswer((state) => {
-      return [...state, ""];
+    setAnswerSection((prevState) => {
+      return {
+        ...prevState,
+        answer: [...answerSection.answer, ""],
+      };
     });
   };
 
-  const handleChange = (e) => (i) => {
-    setAnswer((state) => {
-      state.map((el, index) => {
-        return i === index ? e.target.value : el;
-      });
+  const handleChange = (i) => (e) => {
+    setAnswerSection((prevState) => {
+      return {
+        ...prevState,
+        answer: answerSection.answer.map((el, index) => {
+          return i === index ? e.target.value : el;
+        }),
+      };
     });
   };
 
   return (
     <>
-      {answer.map((e, i) => {
+      {answerSection.answer.map((e, i) => {
         console.log(e);
         return (
           <div>
@@ -31,6 +35,7 @@ export default function RadioQuetion() {
         );
       })}
       <Button buttonName="Add" onClick={addAnswer} />
+
     </>
   );
 }
