@@ -12,12 +12,16 @@ export default function QuetionForm() {
     type: "text",
     answer: [1, 2],
     correctAnswer: "srgted",
+    point: 0,
   });
 
   const handleSelect = ({ target }) => {
-    console.log(target.value);
     setAnswerSection((prevState) => {
-      return { ...prevState, type: target.value };
+      return {
+        ...prevState,
+        type: target.value,
+        point: target.value === "text" ? 0 : 1,
+      };
     });
   };
 
