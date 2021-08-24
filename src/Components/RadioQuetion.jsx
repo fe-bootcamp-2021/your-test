@@ -12,6 +12,19 @@ export default function RadioQuetion({ setAnswerSection, answerSection }) {
     });
   };
 
+  const handleDelete = (val) => (e) => {
+    setAnswerSection((prevState) => {
+      return {
+        ...prevState,
+        answer: answerSection.answer.filter((el) => {
+          console.log(val);
+
+          return el !== val;
+        }),
+      };
+    });
+  };
+
   const handleChange = (i) => (e) => {
     setAnswerSection((prevState) => {
       return {
@@ -23,12 +36,11 @@ export default function RadioQuetion({ setAnswerSection, answerSection }) {
     });
   };
 
-  const handlePoint = (val) => (e) => {
-    console.log(val);
+  const handlePoint = ({ target }) => {
     setAnswerSection((prevState) => {
       return {
         ...prevState,
-        point: e.target.value,
+        point: target.value,
       };
     });
   };
@@ -54,12 +66,13 @@ export default function RadioQuetion({ setAnswerSection, answerSection }) {
               onChange={handleCorrectAnswer}
             />
             <Input type="text" value={e} onChange={handleChange(i)} />
+            <Button buttonName="X" onClick={handleDelete(e)} />
           </div>
         );
       })}
       <Button buttonName="Add" onClick={addAnswer} />
       <span>Point</span>
-      <select value={answerSection.point} onChange={handlePoint("point")}>
+      <select value={answerSection.point} onChange={handlePoint}>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
