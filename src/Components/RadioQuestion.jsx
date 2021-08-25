@@ -2,7 +2,7 @@ import React from "react";
 import Button from "./Button";
 import Input from "./Input";
 
-export default function RadioQuetion({ setAnswerSection, answerSection }) {
+export default function RadioQuestion({ setAnswerSection, answerSection }) {
   const addAnswer = () => {
     setAnswerSection((prevState) => {
       return {
@@ -35,7 +35,6 @@ export default function RadioQuetion({ setAnswerSection, answerSection }) {
         );
       })}
       <Button buttonName="Add" onClick={addAnswer} />
-
     </>
   );
 }

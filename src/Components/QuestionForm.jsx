@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import Button from "./Button";
 import Input from "./Input";
-import RadioQuetion from "./RadioQuetion";
+import RadioQuestion from "./RadioQuestion";
 
-const quetionSection = classNames();
+const questionSection = classNames();
 
-export default function QuetionForm() {
+export default function QuestionForm() {
   const [answerSection, setAnswerSection] = useState({
-    quetion: "",
+    question: "",
     type: "text",
     answer: [1, 2],
     correctAnswer: "srgted",
@@ -21,24 +21,24 @@ export default function QuetionForm() {
     });
   };
 
-  const handleCreateQuetion = () => {
+  const handleCreateQuestion = () => {
     console.log({ answerSection });
   };
 
   return (
     <div className="fixed top-1/3 w-screen flex flex-col justify-center items-center">
       <div className="w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
-        Create quetion
+        Create question
       </div>
       <div className="w-1/2 editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl bg-gray-200">
         <Input
-          placeholder="Quetion"
+          placeholder="Question"
           onChange={({ target }) => {
             setAnswerSection((prevState) => {
-              return { ...prevState, quetion: target.value };
+              return { ...prevState, question: target.value };
             });
           }}
-          value={answerSection.quetion}
+          value={answerSection.question}
           type="text"
         />
 
@@ -50,7 +50,7 @@ export default function QuetionForm() {
         </select>
 
         {answerSection.type === "radio" || answerSection.type === "checkbox" ? (
-          <RadioQuetion
+          <RadioQuestion
             setAnswerSection={setAnswerSection}
             answerSection={answerSection}
           />
@@ -72,7 +72,7 @@ export default function QuetionForm() {
           <Button
             buttonName="Create"
             color="red"
-            onClick={handleCreateQuetion}
+            onClick={handleCreateQuestion}
           />
         </div>
       </div>
