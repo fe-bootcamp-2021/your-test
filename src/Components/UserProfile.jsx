@@ -6,6 +6,7 @@ import Button from "./Button";
 import TestPopup from "./TestPopup";
 import TestPaper from "./TestPaper";
 import Popup from "./Popup";
+import { getTests } from "../services/test.services";
 
 export default function UserProfile() {
   const { currentUser } = useAuth();
@@ -22,13 +23,7 @@ export default function UserProfile() {
     setIsTestPopup((prev) => !prev);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => setMessagePopup(false), 3000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [messagePopup]);
+  getTests();
 
   useEffect(() => {
     if (currentUser) {

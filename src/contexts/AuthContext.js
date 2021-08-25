@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 // eslint-disable-next-line import/no-named-as-default
-import { auth } from "../services/firebase";
+import { auth } from "../libs/firebase";
 
 const AuthContext = React.createContext();
 
@@ -11,16 +11,24 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
 
-  function signup(email, password) {
-    auth.createUserWithEmailAndPassword(email, password);
+  async function signup(email, password) {
+    try {
+      await auth.createUserWithEmailAndPassword(email, password);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   function signOut() {
     auth.signOut();
   }
 
-  function signIn(username, password) {
-    auth.signInWithEmailAndPassword(username, password);
+  async function signIn(username, password) {
+    try {
+      await auth.signInWithEmailAndPassword(username, password);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   useEffect(() => {

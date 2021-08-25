@@ -5,9 +5,10 @@ import { useHistory } from "react-router-dom";
 import { registrationScheme } from "../validationSchemes/registrationScheme";
 import Button from "./Button";
 import TextField from "./TextField";
-import handleRegistrationSubmit from "../handlers/handleRegistraionSubmit";
 import { useAuth } from "../contexts/AuthContext";
 import Popup from "./Popup";
+import { userPageRote } from "../constants/routes";
+import { addUser } from "../services/user.services";
 
 export default function RegistrationForm() {
   const [showPopup, setShowPopup] = useState({
@@ -15,34 +16,53 @@ export default function RegistrationForm() {
     massage: "",
     isError: false,
   });
-  const [registeredUsers, setRegisteredUsers] = useState([]);
   const { signup, currentUser } = useAuth();
   const historyHook = useHistory();
 
-  // get users block in local storage
-  useEffect(() => {
-    const users = localStorage.getItem("users");
+  function handleRegistrationSubmit(userInfo) {
+    const user = {
+      name: userInfo.firstName,
+      email: userInfo.email,
+      password: userInfo.password,
+    };
 
-    if (users) {
-      setRegisteredUsers(JSON.parse(users));
-    }
-  }, []);
+    Promise.resolve().then(() => {
+      signup(user.email, user.password)
+        .then(() => {
+          addUser({
+            email: user.email,
+            password: user.password,
+            uid: currentUser.uid,
+          });
+        })
+        .then(() => {
+          setShowPopup({
+            isPopup: true,
+            massage: "You registered successfully",
+            isError: false,
+          });
+          historyHook.push(userPageRote);
+        })
+        .catch((err) => {
+          const errMassage = String(err).slice(13);
+          setShowPopup({
+            isPopup: true,
+            massage: errMassage,
+            isError: true,
+          });
+        });
+    });
 
-  //   Close popup after some time
-  useEffect(() => {
-    if (showPopup.isPopup === true) {
-      const timer = setTimeout(() => {
-        setShowPopup({ isPopup: false });
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showPopup]);
+    return true;
+  }
 
   return (
     <>
-      {showPopup.isPopup ? (
-        <Popup message={showPopup.massage} isError={showPopup.isError} />
-      ) : null}
+      <Popup
+        message={showPopup.massage}
+        isError={showPopup.isError}
+        isPopup={showPopup.isPopup}
+      />
       <Formik
         initialValues={{
           firstName: "",
@@ -53,12 +73,7 @@ export default function RegistrationForm() {
         }}
         validationSchema={registrationScheme}
         onSubmit={(formData, { resetForm }) => {
-          handleRegistrationSubmit(
-            formData,
-            setShowPopup,
-            { signup },
-            { historyHook }
-          );
+          handleRegistrationSubmit(formData);
           resetForm();
         }}
       >

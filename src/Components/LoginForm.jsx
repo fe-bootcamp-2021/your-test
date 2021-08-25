@@ -5,9 +5,9 @@ import { useHistory } from "react-router-dom";
 import { loginScheme } from "../validationSchemes/loginScheme";
 import Button from "./Button";
 import TextField from "./TextField";
-import handleLoginSubmit from "../handlers/handleLoginSubmit";
 import Popup from "./Popup";
 import { useAuth } from "../contexts/AuthContext";
+import { userPageRote } from "../constants/routes";
 
 export default function LoginForm() {
   const [showPopup, setShowPopup] = useState({
@@ -15,38 +15,38 @@ export default function LoginForm() {
     massage: "",
     isError: false,
   });
-  const [registeredUsers, setRegisteredUsers] = useState([]);
   const { signIn } = useAuth();
-  // User page history
   const history = useHistory();
 
-  // get users block in local storage
-  useEffect(() => {
-    const users = localStorage.getItem("users");
-
-    if (users) {
-      setRegisteredUsers(JSON.parse(users));
-    }
-  }, []);
-  //   console.log(showPopup.isPopup);
-  //   //   useEffect(() => {
-  //   //     localStorage.setItem("users", JSON.stringify(registeredUsers));
-  //   //   });
-  //   //   close popup after 3 seconds
-  useEffect(() => {
-    if (showPopup.isPopup === true) {
-      const timer = setTimeout(() => {
-        setShowPopup({ isPopup: false });
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showPopup]);
+  function handleLoginSubmit(userInfo) {
+    Promise.resolve().then(() => {
+      signIn(userInfo.email, userInfo.password)
+        .then(() => {
+          setShowPopup({
+            isPopup: true,
+            massage: "You Logined successfully",
+            isError: false,
+          });
+          history.push(userPageRote);
+        })
+        .catch((err) => {
+          const errMassage = String(err).slice(13);
+          setShowPopup({
+            isPopup: true,
+            massage: errMassage,
+            isError: true,
+          });
+        });
+    });
+  }
 
   return (
     <>
-      {showPopup.isPopup ? (
-        <Popup message={showPopup.massage} isError={showPopup.isError} />
-      ) : null}
+      <Popup
+        message={showPopup.massage}
+        isError={showPopup.isError}
+        isPopup={showPopup.isPopup}
+      />
       <Formik
         initialValues={{
           email: "",
@@ -54,7 +54,7 @@ export default function LoginForm() {
         }}
         validationSchema={loginScheme}
         onSubmit={(formData, { resetForm }) => {
-          handleLoginSubmit(formData, setShowPopup, signIn, history);
+          handleLoginSubmit(formData);
           resetForm();
         }}
       >
