@@ -9,18 +9,14 @@ export const addTest = function ({ testDescription, testTitle, userId }) {
 };
 
 export const getUserTests = function ({ userId }) {
-  console.log(userId);
-  console.log(userId);
-
+  const curentUserTests = [];
   return db
     .ref(`/tests/`)
     .orderByChild("userId")
     .equalTo(`${userId}`)
     .on("value", (snapshot) => {
-      //   console.log(userId);
-      //   console.log(snapshot);
-
       snapshot.forEach((item) => {
+        console.log(item.key);
         console.log(item.val());
       });
     });
