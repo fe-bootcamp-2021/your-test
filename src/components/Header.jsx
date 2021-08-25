@@ -9,7 +9,7 @@ export default function Header({ children }) {
     >
       <div className="container px-4 mx-auto flex items-center justify-between">
         <div className="flex justify-between items-center">
-          <a href="/" className="font-bold text-2xl text-gray-600">
+          <a href="" className="font-bold text-2xl text-gray-600">
             Your Test
           </a>
         </div>

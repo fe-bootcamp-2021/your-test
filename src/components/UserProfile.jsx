@@ -6,6 +6,7 @@ import Button from "./Button";
 import TestPopup from "./TestPopup";
 import TestPaper from "./TestPaper";
 import Popup from "./Popup";
+import { getUserTests } from "../services/test.services";
 
 export default function UserProfile() {
   const { currentUser } = useAuth();
@@ -23,15 +24,9 @@ export default function UserProfile() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => setMessagePopup(false), 3000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [messagePopup]);
-
-  useEffect(() => {
     if (currentUser) {
+      const currentUserUId = String(currentUser.uid);
+      getUserTests({ userId: currentUserUId });
       axios
         .get(
           `https://get-forms-5e80d-default-rtdb.europe-west1.firebasedatabase.app/tests/.json`
