@@ -8,11 +8,18 @@ export const addTest = function ({ testDescription, testTitle, userId }) {
   });
 };
 
-export const getTests = function () {
-  return db.ref("/tests/").on("value", (snapshot) => {
-    snapshot.forEach((item) => {
-      console.log(item.key);
-      console.log(item.val());
+export const getUserTests = function ({ userId }) {
+  console.log(userId);
+  return db
+    .ref(`/tests/`)
+    .orderByChild("userId")
+    .equalTo(`${userId}`)
+    .on("value", (snapshot) => {
+      //   console.log(userId);
+      //   console.log(snapshot);
+
+      snapshot.forEach((item) => {
+        console.log(item.val());
+      });
     });
-  });
 };

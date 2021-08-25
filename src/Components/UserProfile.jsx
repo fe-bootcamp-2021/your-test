@@ -6,7 +6,7 @@ import Button from "./Button";
 import TestPopup from "./TestPopup";
 import TestPaper from "./TestPaper";
 import Popup from "./Popup";
-import { getTests } from "../services/test.services";
+import { getUserTests } from "../services/test.services";
 
 export default function UserProfile() {
   const { currentUser } = useAuth();
@@ -23,10 +23,10 @@ export default function UserProfile() {
     setIsTestPopup((prev) => !prev);
   };
 
-  getTests();
-
   useEffect(() => {
     if (currentUser) {
+      const currentUserUId = String(currentUser.uid);
+      getUserTests({ userId: currentUserUId });
       axios
         .get(
           `https://get-forms-5e80d-default-rtdb.europe-west1.firebasedatabase.app/tests/.json`
