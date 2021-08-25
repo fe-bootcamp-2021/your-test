@@ -10,6 +10,8 @@ export const addTest = function ({ testDescription, testTitle, userId }) {
 
 export const getUserTests = function ({ userId }) {
   console.log(userId);
+  console.log(userId);
+
   return db
     .ref(`/tests/`)
     .orderByChild("userId")
