@@ -1,17 +1,20 @@
 {
+
     "env": {
         "browser": true,
         "node": true
     },
     "extends": [
         "react-app",
-        "prettier","airbnb"
+        "prettier",
+        "airbnb"
     ],
     "parserOptions": {
         "ecmaVersion": 12 
     },
     "plugins": [
-        "react", "prettier"
+        "react",
+        "prettier"
     ],
     "rules":  {
         "quotes":"off",
@@ -46,4 +49,6 @@
           }
         ]
       }
+    ]
+  }
 }

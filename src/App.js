@@ -1,9 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useEffect } from "react";
-import axios from "axios";
-import LoginPage from "./Pages/LoginPage";
-import UserPage from "./Pages/UserPage";
-import RegisterPage from "./Pages/RegisterPage";
+import UserPage from "./pages/UserPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import { AuthProvider } from "./contexts/AuthContext";
 
 export default function App() {

@@ -1,12 +1,11 @@
 import { useHistory } from "react-router-dom";
-import Header from "../Components/Header";
-import UserProfile from "../Components/UserProfile";
+import Header from "../components/Header";
+import UserProfile from "../components/UserProfile";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function UserPage() {
   const history = useHistory();
   const { signOut } = useAuth();
-  console.log(signOut);
 
   return (
     <>
