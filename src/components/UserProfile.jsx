@@ -39,7 +39,6 @@ export default function UserProfile() {
           return tableData;
         })
         .then((tableData) => {
-          console.log("bob");
           const getCurrentUserTests = tableData.data.filter(
             (elem) => elem[1].userId === tableData.currentUserId
           );

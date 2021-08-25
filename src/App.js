@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
+
 import UserPage from "./pages/UserPage";
+import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import {
   loginPageRote,

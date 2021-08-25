@@ -2,7 +2,7 @@ import RegistrationForm from "../components/RegisterForm";
 import Header from "../components/Header";
 import { loginPageRote } from "../constants/routes";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <>
       <Header>
