@@ -1,8 +1,13 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import UserPage from "./pages/UserPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import { AuthProvider } from "./contexts/AuthContext";
+import {
+  loginPageRote,
+  registerPageRote,
+  userPageRote,
+} from "./constants/routes";
 
 export default function App() {
   // useEffect(() => {
@@ -23,21 +28,19 @@ export default function App() {
 
   return (
     <>
-      <AuthProvider>
-        <Router>
-          <Switch>
-            <Route path="/loginPage">
-              <LoginPage />
-            </Route>
-            <Route exact path="/">
-              <RegisterPage />
-            </Route>
-            <Route exact path="/user">
-              <UserPage />
-            </Route>
-          </Switch>
-        </Router>
-      </AuthProvider>
+      <Router>
+        <Switch>
+          <Route path={loginPageRote}>
+            <LoginPage />
+          </Route>
+          <Route exact path={registerPageRote}>
+            <RegisterPage />
+          </Route>
+          <Route exact path={userPageRote}>
+            <UserPage />
+          </Route>
+        </Switch>
+      </Router>
     </>
   );
 }

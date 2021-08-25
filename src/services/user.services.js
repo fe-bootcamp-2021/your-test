@@ -1,4 +1,4 @@
-import { db } from "./firebase";
+import { db } from "../libs/firebase";
 
 export const addUser = function ({ email, password, uid }) {
   return db.ref(`/users/${uid}`).set({
