@@ -2,47 +2,87 @@ import React, { useState } from "react";
 import Button from "./Button";
 import Input from "./Input";
 
-export default function TestingForm() {
-  const [state, setState] = useState({
-    answer: "",
-    correctAnswer: false,
-    point: 0,
-  });
-
-  const obj = {
+const data = [
+  {
     question: "4 + 3 = X",
+    type: "radio",
+    correctAnswer: "7",
+    answer: [5, 9, 7],
+    point: 3,
+  },
+  {
+    question: "10 - 5 = X",
     point: 3,
     type: "radio",
-    correctAnswer: 7,
     answer: [5, 9, 7],
-  };
+    correctAnswer: "5",
+  },
+  {
+    question: "100 + 3 = X",
+    type: "radio",
+    correctAnswer: "103",
+    answer: [8, 103, 7],
+    point: 3,
+  },
+  {
+    question: "10 - 50 = X",
+    point: 3,
+    type: "text",
+    answer: [50, 9, 7],
+    correctAnswer: "50",
+  },
+];
+
+export default function TestingForm() {
+  const [state, setState] = useState(data);
 
   const handleSubmit = () => {
+    state.forEach((el) => {
+      if (el.correctAnswer !== el.selected) {
+        el.point = 0;
+      }
+    });
     console.log(state);
   };
 
-  const handleChange = (el) => (e) => {
-    const correct = el === obj.correctAnswer;
+  const handleChange = (i) => (e) => {
     setState((prevState) => {
-      return {
-        answer: el,
-        correctAnswer: correct,
-        point: correct ? obj.point : 0,
-      };
+      return prevState.map((item, ind) => {
+        return i === ind ? { ...item, selected: e.target.value } : item;
+      });
     });
   };
 
   return (
     <>
       <h1>Test form example</h1>
-      <p>{obj.question}</p>
-      {obj.answer.map((el) => {
+      {state.map((obj, i) => {
         return (
           <>
-            <label htmlFor="1">
-              <Input name="1" type={obj.type} onChange={handleChange(el)} />
-              {el}
-            </label>
+            <p>{obj.question}</p>
+
+            {obj.type === "text" ? (
+              <Input
+                name={i}
+                type={obj.type}
+                value={obj.selected}
+                onChange={handleChange(i)}
+              />
+            ) : (
+              obj.answer.map((el) => {
+                return (
+                  <label htmlFor={i}>
+                    <Input
+                      name={i}
+                      type={obj.type}
+                      value={el}
+                      onChange={handleChange(i)}
+                    />
+                    {el}
+                  </label>
+                );
+              })
+            )}
           </>
         );
       })}
