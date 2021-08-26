@@ -6,7 +6,7 @@ import RadioQuestion from "./RadioQuestion";
 
 const questionSection = classNames();
 
-export default function QuestionForm() {
+export default function QuestionForm({ closeQuestionForm }) {
   const [answerSection, setAnswerSection] = useState({
     question: "",
     type: "text",
@@ -16,13 +16,11 @@ export default function QuestionForm() {
   });
 
   const handleSelect = ({ target }) => {
-    setAnswerSection((prevState) => {
-      return {
-        ...prevState,
-        type: target.value,
-        point: target.value === "text" ? 0 : 1,
-      };
-    });
+    setAnswerSection((prevState) => ({
+      ...prevState,
+      type: target.value,
+      point: target.value === "text" ? 0 : 1,
+    }));
   };
 
   const handleCreateQuestion = () => {
@@ -30,16 +28,14 @@ export default function QuestionForm() {
   };
 
   const handlePoint = ({ target }) => {
-    setAnswerSection((prevState) => {
-      return {
-        ...prevState,
-        point: target.value,
-      };
-    });
+    setAnswerSection((prevState) => ({
+      ...prevState,
+      point: target.value,
+    }));
   };
 
   return (
-    <div className=" top-1/3 w-screen flex flex-col justify-center items-center">
+    <div className="absolute top-1/3 w-1/2 flex flex-col justify-center items-center">
       <div className="w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
         Create question
       </div>
@@ -47,9 +43,10 @@ export default function QuestionForm() {
         <Input
           placeholder="Question"
           onChange={({ target }) => {
-            setAnswerSection((prevState) => {
-              return { ...prevState, question: target.value };
-            });
+            setAnswerSection((prevState) => ({
+              ...prevState,
+              question: target.value,
+            }));
           }}
           value={answerSection.question}
           type="text"
@@ -89,7 +86,9 @@ export default function QuestionForm() {
         <div className="buttons flex">
           <Button
             buttonName="Cancel"
-            // onClick={            }}
+            onClick={() => {
+              closeQuestionForm(false);
+            }}
           />
           <Button
             buttonName="Create"

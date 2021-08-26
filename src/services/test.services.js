@@ -9,15 +9,23 @@ export const addTest = function ({ testDescription, testTitle, userId }) {
 };
 
 export const getUserTests = function ({ userId }) {
-  const curentUserTests = [];
-  return db
-    .ref(`/tests/`)
-    .orderByChild("userId")
-    .equalTo(`${userId}`)
-    .on("value", (snapshot) => {
-      snapshot.forEach((item) => {
-        console.log(item.key);
-        console.log(item.val());
+  const currentUserTests = [];
+  return new Promise((resolve) => {
+    db.ref(`/tests/`)
+      .orderByChild("userId")
+      .equalTo(`${userId}`)
+      .on("value", (snapshot) => {
+        snapshot.forEach((item) => {
+          currentUserTests.push([
+            item.key,
+            {
+              testDescription: item.val().testDescription,
+              testTitle: item.val().testTitle,
+              userId: item.val().userId,
+            },
+          ]);
+        });
+        resolve(currentUserTests);
       });
-    });
+  });
 };
