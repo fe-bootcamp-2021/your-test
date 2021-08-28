@@ -54,14 +54,15 @@ export default function TestingForm() {
   };
 
   return (
-    <div className="w-96 border-solid border-2 border-gray-200 shadow-xl flex flex-auto flex-col p-4">
-      <h1>Test form example</h1>
+    <div className="max-w-3xl m-auto border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4">
+      <h1 className="text-4xl">Test form example</h1>
+      <p className="text-lg mb-4">Answer the question</p>
       {state.map((obj, i) => {
         return (
           <>
             <hr />
-            <p>
-              <span>{i + 1}) </span>
+            <p className="p-2 font-semibold">
+              <span>{i + 1}. </span>
               {obj.question}
             </p>
 
@@ -75,7 +76,7 @@ export default function TestingForm() {
             ) : (
               obj.answer.map((el) => {
                 return (
-                  <label htmlFor={i}>
+                  <label htmlFor={i} className=" ml-6">
                     <Input
                       name={i}
                       type={obj.type}
