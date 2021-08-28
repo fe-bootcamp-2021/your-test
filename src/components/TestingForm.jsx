@@ -19,9 +19,9 @@ const data = [
   },
   {
     question: "100 + 3 = X",
-    type: "radio",
+    type: "checkbox",
     correctAnswer: "103",
-    answer: [8, 103, 7],
+    answer: [8, 103, 7, 95],
     point: 3,
   },
   {
@@ -54,12 +54,16 @@ export default function TestingForm() {
   };
 
   return (
-    <>
+    <div className="w-96 border-solid border-2 border-gray-200 shadow-xl flex flex-auto flex-col p-4">
       <h1>Test form example</h1>
       {state.map((obj, i) => {
         return (
           <>
-            <p>{obj.question}</p>
+            <hr />
+            <p>
+              <span>{i + 1}) </span>
+              {obj.question}
+            </p>
 
             {obj.type === "text" ? (
               <Input
@@ -87,6 +91,6 @@ export default function TestingForm() {
         );
       })}
       <Button buttonName="Submit" color="blue" onClick={handleSubmit} />
-    </>
+    </div>
   );
 }
