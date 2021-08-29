@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import Input from "./Input";
+import Popup from "./Popup";
 
 const data = [
   {
@@ -36,10 +37,28 @@ const data = [
 
 export default function TestingForm() {
   const [state, setState] = useState(data);
+  const [showPopup, setShowPopup] = useState({
+    isPopup: false,
+    massage: "",
+    isError: false,
+  });
+
+  // useEffect(() => {
+  //   if (showPopup.isPopup) {
+  //     const timer = setTimeout(() => {
+  //       setShowPopup((prevState) => {
+  //         return { ...prevState, isPopup: false };
+  //       });
+  //     }, 3000);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [showPopup]);
 
   const handleSubmit = () => {
     state.forEach((el) => {
-      if (el.type === "checkbox") {
+      if (!el.selected || el.selected === []) {
+        throw alert("Please write all tasks");
+      } else if (el.type === "checkbox") {
         if (
           el.correctAnswer.sort().join(",") !== el.selected.sort().join(",")
         ) {
@@ -85,6 +104,11 @@ export default function TestingForm() {
 
   return (
     <div className="max-w-3xl m-auto border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4">
+      <Popup
+        message={showPopup.massage}
+        isError={showPopup.isError}
+        isPopup={showPopup.isPopup}
+      />
       <h1 className="text-4xl">Test form example</h1>
       <p className="text-lg mb-4">Answer the question</p>
       {state.map((obj, i) => {
