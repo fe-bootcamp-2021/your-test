@@ -6,7 +6,7 @@ const data = [
   {
     question: "4 + 3 = X",
     type: "radio",
-    correctAnswer: "7",
+    correctAnswer: ["7"],
     answer: [5, 9, 7],
     point: 3,
   },
@@ -15,21 +15,22 @@ const data = [
     point: 3,
     type: "radio",
     answer: [5, 9, 7],
-    correctAnswer: "5",
+    correctAnswer: ["5"],
   },
   {
     question: "100 + 3 = X",
     type: "checkbox",
-    correctAnswer: "103",
-    answer: [8, 103, 7, 95],
+    correctAnswer: ["103", "undefined", "arm"],
+    answer: ["arm", "103", "undefined", "95"],
     point: 3,
+    selected: [],
   },
   {
     question: "10 - 50 = X",
     point: 3,
     type: "text",
     answer: [50, 9, 7],
-    correctAnswer: "50",
+    correctAnswer: ["50"],
   },
 ];
 
@@ -38,20 +39,49 @@ export default function TestingForm() {
 
   const handleSubmit = () => {
     state.forEach((el) => {
-      if (el.correctAnswer !== el.selected) {
+      if (el.type === "checkbox") {
+        if (
+          el.correctAnswer.sort().join(",") !== el.selected.sort().join(",")
+        ) {
+          el.point = 0;
+        }
+      } else if (el.correctAnswer !== el.selected) {
         el.point = 0;
       }
     });
     console.log(state);
   };
 
-  const handleChange = (i) => (e) => {
-    setState((prevState) => {
-      return prevState.map((item, ind) => {
-        return i === ind ? { ...item, selected: e.target.value } : item;
+  const handleCheck = (selected, { checked, value }) => {
+    let res = [];
+    if (checked) {
+      res = [...selected, value];
+    } else
+      res = selected.filter((el) => {
+        return el !== value;
       });
-    });
+    return res;
   };
+
+  const handleChange =
+    (i) =>
+    ({ target }) => {
+      setState((prevState) => {
+        console.log(target.checked);
+        return prevState.map((item, ind) => {
+          if (i === ind) {
+            if (target.type === "checkbox") {
+              return {
+                ...item,
+                selected: handleCheck(item.selected, target),
+              };
+            }
+            return { ...item, selected: target.value };
+          }
+          return item;
+        });
+      });
+    };
 
   return (
     <div className="max-w-3xl m-auto border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4">
