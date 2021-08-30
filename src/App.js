@@ -2,7 +2,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserPage from "./pages/UserPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import HomePage from "./pages/HomePage";
 import {
+  homePage,
   loginPageRote,
   registerPageRote,
   userPageRote,
@@ -31,7 +33,10 @@ export default function App() {
     <>
       {/* <Router>
         <Switch>
-          <Route path={loginPageRote}>
+          <Route exact path={homePage}>
+            <HomePage />
+          </Route>
+          <Route exact path={loginPageRote}>
             <LoginPage />
           </Route>
           <Route exact path={registerPageRote}>
