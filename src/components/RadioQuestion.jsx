@@ -53,10 +53,10 @@ export default function RadioQuestion({ setAnswerSection, answerSection }) {
   };
 
   return (
-    <>
+    <div className="mt-5 mb-5">
       {answerSection.answer.map((e, i) => {
         return (
-          <div>
+          <div key={Number(i)}>
             <Input
               name="asdd"
               value={e}
@@ -64,24 +64,11 @@ export default function RadioQuestion({ setAnswerSection, answerSection }) {
               onChange={handleCorrectAnswer}
             />
             <Input type="text" value={e} onChange={handleChange(i)} />
-            <Button buttonName="X" onClick={handleDelete(e)} />
+            <Button buttonName="X" color="red" onClick={handleDelete(e)} />
           </div>
         );
       })}
-      <Button buttonName="Add" onClick={addAnswer} />
-      {/* <span>Point</span>
-      <select value={answerSection.point} onChange={handlePoint}>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </select> */}
-    </>
+      <Button buttonName="Add" color="blue" onClick={addAnswer} />
+    </div>
   );
 }

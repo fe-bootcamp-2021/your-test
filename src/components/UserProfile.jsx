@@ -23,28 +23,13 @@ export default function UserProfile() {
     setIsTestPopup((prev) => !prev);
   };
 
+  // get current user tests
   useEffect(() => {
     if (currentUser) {
       const currentUserUId = String(currentUser.uid);
-      getUserTests({ userId: currentUserUId });
-      axios
-        .get(
-          `https://get-forms-5e80d-default-rtdb.europe-west1.firebasedatabase.app/tests/.json`
-        )
-        .then((data) => {
-          const tableData = {
-            data: Object.entries(data.data),
-            currentUserId: JSON.parse(JSON.stringify(currentUser.uid)),
-          };
-          return tableData;
-        })
-        .then((tableData) => {
-          console.log(tableData.data);
-          const getCurrentUserTests = tableData.data.filter(
-            (elem) => elem[1].userId === tableData.currentUserId
-          );
-          setCurrentUserTests((pre) => ({ ...pre, ...getCurrentUserTests }));
-        });
+      getUserTests({ userId: currentUserUId }).then((res) => {
+        setCurrentUserTests((pre) => ({ ...pre, ...res }));
+      });
     }
   }, [currentUser, isAddSuccess]);
 

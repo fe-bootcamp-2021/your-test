@@ -3,10 +3,15 @@ import classNames from "classnames";
 import Button from "./Button";
 import Input from "./Input";
 import RadioQuestion from "./RadioQuestion";
+import { addQuestions, getTestQuestions } from "../services/question.services";
 
 const questionSection = classNames();
 
-export default function QuestionForm() {
+export default function QuestionForm({
+  closeQuestionForm,
+  setAllQuestions,
+  testId,
+}) {
   const [answerSection, setAnswerSection] = useState({
     question: "",
     type: "text",
@@ -16,30 +21,38 @@ export default function QuestionForm() {
   });
 
   const handleSelect = ({ target }) => {
-    setAnswerSection((prevState) => {
-      return {
-        ...prevState,
-        type: target.value,
-        point: target.value === "text" ? 0 : 1,
-      };
-    });
+    setAnswerSection((prevState) => ({
+      ...prevState,
+      type: target.value,
+      point: target.value === "text" ? 0 : 1,
+    }));
   };
 
   const handleCreateQuestion = () => {
     console.log({ answerSection });
-  };
-
-  const handlePoint = ({ target }) => {
-    setAnswerSection((prevState) => {
-      return {
-        ...prevState,
-        point: target.value,
-      };
+    addQuestions({
+      answer: answerSection.answer,
+      correctAnswer: answerSection.correctAnswer,
+      point: Number(answerSection.point),
+      question: answerSection.question,
+      type: answerSection.type,
+      testId,
+    }).then(() => {
+      closeQuestionForm(false);
+      setAllQuestions([]);
+      console.log("ekela");
     });
   };
 
+  const handlePoint = ({ target }) => {
+    setAnswerSection((prevState) => ({
+      ...prevState,
+      point: target.value,
+    }));
+  };
+
   return (
-    <div className=" top-1/3 w-screen flex flex-col justify-center items-center">
+    <div className="absolute top-1/3 w-1/2 flex flex-col justify-center items-center">
       <div className="w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
         Create question
       </div>
@@ -47,9 +60,10 @@ export default function QuestionForm() {
         <Input
           placeholder="Question"
           onChange={({ target }) => {
-            setAnswerSection((prevState) => {
-              return { ...prevState, question: target.value };
-            });
+            setAnswerSection((prevState) => ({
+              ...prevState,
+              question: target.value,
+            }));
           }}
           value={answerSection.question}
           type="text"
@@ -89,11 +103,14 @@ export default function QuestionForm() {
         <div className="buttons flex">
           <Button
             buttonName="Cancel"
-            // onClick={            }}
+            color="red"
+            onClick={() => {
+              closeQuestionForm(false);
+            }}
           />
           <Button
             buttonName="Create"
-            color="red"
+            color="green"
             onClick={handleCreateQuestion}
           />
         </div>
