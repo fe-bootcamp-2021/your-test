@@ -3,18 +3,11 @@
     "browser": true,
     "node": true
   },
-  "extends": [
-    "react-app",
-    "airbnb",
-    "prettier"
-  ],
+  "extends": ["react-app", "airbnb", "prettier"],
   "parserOptions": {
     "ecmaVersion": 12
   },
-  "plugins": [
-    "react",
-    "prettier"
-  ],
+  "plugins": ["react", "prettier"],
   "rules": {
     "quotes": "off",
     "react/prefer-stateless-function": "off",
@@ -42,10 +35,7 @@
         // "printWidth": 80,
         // "trailingComma": "es5",
         "endOfLine": "auto",
-        "indent": [
-          "error",
-          6
-        ]
+        "indent": ["error", 6]
         // "jsxSingleQuote": false,
         // "singleQuote": false,
         // "useTabs": false
