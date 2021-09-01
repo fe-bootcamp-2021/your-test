@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 
 const classNames = require("classnames");
 
-export default function Popup({ message, isError, isPopup }) {
-  const [showPopup, setShowPopup] = useState(true);
+export default function Popup({ message, isError, isPopup, showPopup }) {
+  // const [showPopup, setShowPopup] = useState(isPopup);
 
   const popupStyle = classNames({
     "flex flex-col p-8 shadow-md hover:shodow-lg rounded-2xl fixed top-20 right-3": true,
@@ -16,13 +16,14 @@ export default function Popup({ message, isError, isPopup }) {
   useEffect(() => {
     if (isPopup) {
       const timer = setTimeout(() => {
-        setShowPopup(false);
+        showPopup({ isPopup: false });
       }, 3000);
       return () => clearTimeout(timer);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPopup]);
 
-  if (showPopup && isPopup) {
+  if (isPopup) {
     return (
       <div className={popupStyle}>
         <div className="flex items-center justify-between">

@@ -46,6 +46,7 @@ export default function LoginForm() {
         message={showPopup.massage}
         isError={showPopup.isError}
         isPopup={showPopup.isPopup}
+        showPopup={setShowPopup}
       />
       <Formik
         initialValues={{

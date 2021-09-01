@@ -3,10 +3,15 @@ import classNames from "classnames";
 import Button from "./Button";
 import Input from "./Input";
 import RadioQuestion from "./RadioQuestion";
+import { addQuestions, getTestQuestions } from "../services/question.services";
 
 const questionSection = classNames();
 
-export default function QuestionForm({ closeQuestionForm }) {
+export default function QuestionForm({
+  closeQuestionForm,
+  setAllQuestions,
+  testId,
+}) {
   const [answerSection, setAnswerSection] = useState({
     question: "",
     type: "text",
@@ -25,6 +30,18 @@ export default function QuestionForm({ closeQuestionForm }) {
 
   const handleCreateQuestion = () => {
     console.log({ answerSection });
+    addQuestions({
+      answer: answerSection.answer,
+      correctAnswer: answerSection.correctAnswer,
+      point: Number(answerSection.point),
+      question: answerSection.question,
+      type: answerSection.type,
+      testId,
+    }).then(() => {
+      closeQuestionForm(false);
+      setAllQuestions([]);
+      console.log("ekela");
+    });
   };
 
   const handlePoint = ({ target }) => {
@@ -86,13 +103,14 @@ export default function QuestionForm({ closeQuestionForm }) {
         <div className="buttons flex">
           <Button
             buttonName="Cancel"
+            color="red"
             onClick={() => {
               closeQuestionForm(false);
             }}
           />
           <Button
             buttonName="Create"
-            color="red"
+            color="green"
             onClick={handleCreateQuestion}
           />
         </div>

@@ -34,6 +34,7 @@
     "import/no-extraneous-dependencies": "off",
     "react/jsx-props-no-spreading": "off",
     "arrow-body-style": "off",
+    "eslint-disable-next-line": "off",
     // "eslint object-curly-newline": ["error", { "consistent": false }],
     "prettier/prettier": [
       "error",
