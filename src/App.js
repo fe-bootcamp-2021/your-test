@@ -9,6 +9,8 @@ import {
   registerPageRote,
   userPageRote,
 } from "./constants/routes";
+import QuestionForm from "./components/QuestionForm";
+import TestingForm from "./components/TestingForm";
 
 export default function App() {
   // useEffect(() => {
@@ -29,7 +31,7 @@ export default function App() {
 
   return (
     <>
-      <Router>
+      {/* <Router>
         <Switch>
           <Route exact path={homePage}>
             <HomePage />
@@ -44,7 +46,9 @@ export default function App() {
             <UserPage />
           </Route>
         </Switch>
-      </Router>
+      </Router> */}
+      {/* <QuestionForm /> */}
+      <TestingForm />
     </>
   );
 }
