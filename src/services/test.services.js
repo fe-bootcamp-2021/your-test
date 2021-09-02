@@ -29,3 +29,16 @@ export const getUserTests = function ({ userId }) {
       });
   });
 };
+
+export const getCreatedTest = function ({ testId }) {
+  const currentCreatedTest = {};
+  return new Promise((resolve, reject) => {
+    db.ref(`/tests/${testId}`).once("value", (snapshot) => {
+      if (snapshot.val()) {
+        currentCreatedTest.testDescription = snapshot.val().testDescription;
+        currentCreatedTest.testTitle = snapshot.val().testTitle;
+      }
+      resolve(currentCreatedTest);
+    });
+  });
+};
