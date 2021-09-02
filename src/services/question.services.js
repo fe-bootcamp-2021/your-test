@@ -21,10 +21,10 @@ export const addQuestions = function ({
 export const getTestQuestions = function ({ testId }) {
   const currentTestQuestions = [];
   return new Promise((resolve) => {
-    db.ref(`/questions`)
+    db.ref(`/questions/`)
       .orderByChild("testId")
       .equalTo(testId)
-      .on("value", (snapshot) => {
+      .once("value", (snapshot) => {
         snapshot.forEach((item) => {
           currentTestQuestions.push({
             answer: item.val().answer,
