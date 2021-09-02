@@ -11,19 +11,12 @@ export default function TestPaper({ testId, testInfo }) {
   const [allQuestions, setAllQuestions] = useState([]);
 
   useEffect(() => {
-    getTestQuestions({ testId })
-      .then((res) => {
-        setAllQuestions([]);
-        return res;
-      })
-      .then((res) => {
-        setAllQuestions(res);
-      });
+    getTestQuestions({ testId }).then((res) => {
+      console.log(res);
+      setAllQuestions(res);
+    });
   }, [testId]);
 
-  useEffect(() => {
-    console.log(allQuestions);
-  }, [allQuestions]);
   return (
     <>
       {isQuestionForm && (
