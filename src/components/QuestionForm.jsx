@@ -37,11 +37,25 @@ export default function QuestionForm({
       question: answerSection.question,
       type: answerSection.type,
       testId,
-    }).then(() => {
-      closeQuestionForm(false);
-      setAllQuestions([]);
-      console.log("ekela");
-    });
+    })
+      .then(() => {
+        setAllQuestions((prev) => {
+          return [
+            ...prev,
+            {
+              answer: answerSection.answer,
+              correctAnswer: answerSection.correctAnswer,
+              point: Number(answerSection.point),
+              question: answerSection.question,
+              type: answerSection.type,
+            },
+          ];
+        });
+      })
+      .then(() => {
+        closeQuestionForm(false);
+        console.log("ekela");
+      });
   };
 
   const handlePoint = ({ target }) => {
