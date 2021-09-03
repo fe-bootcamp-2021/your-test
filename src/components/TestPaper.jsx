@@ -15,6 +15,7 @@ export default function TestPaper({ testId, testInfo }) {
       console.log(res);
       setAllQuestions(res);
     });
+    setIsQuestionForm(false);
   }, [testId]);
 
   return (
