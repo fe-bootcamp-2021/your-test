@@ -73,12 +73,14 @@ export default function UserProfile() {
             setIsAddSuccess={setIsAddSuccess}
           />
         )}
-        {isTestPaper && Object.keys(testPaperData).length > 0 && (
-          <TestPaper
-            testId={testPaperData.testId}
-            testInfo={testPaperData.testInfo}
-          />
-        )}
+        {isTestPaper &&
+          Object.keys(testPaperData).length > 0 &&
+          !isTestPopup && (
+            <TestPaper
+              testId={testPaperData.testId}
+              testInfo={testPaperData.testInfo}
+            />
+          )}
       </div>
     </div>
   );
