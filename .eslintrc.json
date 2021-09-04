@@ -36,6 +36,7 @@
     "arrow-body-style": "off",
     "eslint-disable-next-line": "off",
     "prefer-promise-reject-errors": "off",
+    "consistent-return": "off",
     // "eslint object-curly-newline": ["error", { "consistent": false }],
     "prettier/prettier": [
       "error",
