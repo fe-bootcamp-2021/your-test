@@ -23,13 +23,12 @@ export default function SelectQuestion({ setAnswerSection, answerSection }) {
     });
   };
 
-  const handleCheck = (selected = [], { checked, value }) => {
-    console.log(selected);
+  const handleCheck = (correctAnswer = [], { checked, value }) => {
     let res = [];
     if (checked) {
-      res = [...selected, value];
+      res = [...correctAnswer, value];
     } else
-      res = selected.filter((el) => {
+      res = correctAnswer.filter((el) => {
         return el !== value;
       });
     return res;
@@ -59,7 +58,7 @@ export default function SelectQuestion({ setAnswerSection, answerSection }) {
     setAnswerSection((prevState) => {
       return {
         ...prevState,
-        selected: handleCheck(answerSection.selected, target),
+        correctAnswer: handleCheck(answerSection.correctAnswer, target),
       };
     });
   };
