@@ -4,6 +4,7 @@ import Button from "./Button";
 import Input from "./Input";
 import RadioQuestion from "./RadioQuestion";
 import { addQuestions, getTestQuestions } from "../services/question.services";
+import SelectQuestion from "./SelectQuestion";
 
 const questionSection = classNames();
 
@@ -65,6 +66,60 @@ export default function QuestionForm({
     }));
   };
 
+  const questionType = (type) => {
+    console.log(type);
+    switch (type) {
+      case "text":
+        return <Input placeholder="Enter your text" disabled type="text" />;
+      case "radio":
+        return (
+          <>
+            <RadioQuestion
+              setAnswerSection={setAnswerSection}
+              answerSection={answerSection}
+            />
+            <span>Point</span>
+            <select value={answerSection.point} onChange={handlePoint}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </>
+        );
+      case "checkbox":
+        return (
+          <>
+            <SelectQuestion
+              setAnswerSection={setAnswerSection}
+              answerSection={answerSection}
+            />
+            <span>Point</span>
+            <select value={answerSection.point} onChange={handlePoint}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </>
+        );
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="absolute top-1/3 w-1/2 flex flex-col justify-center items-center">
       <div className="w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
@@ -90,7 +145,7 @@ export default function QuestionForm({
           <option value="list">Drop-down list</option>
         </select>
 
-        {answerSection.type === "text" ? (
+        {/* {answerSection.type === "text" ? (
           <Input placeholder="Enter your text" disabled type="text" />
         ) : (
           <>
@@ -112,7 +167,9 @@ export default function QuestionForm({
               <option value="10">10</option>
             </select>
           </>
-        )}
+        )} */}
+
+        {questionType(answerSection.type)}
 
         <div className="buttons flex">
           <Button
