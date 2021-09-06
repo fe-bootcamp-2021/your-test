@@ -7,7 +7,7 @@ import Button from "./Button";
 import TextField from "./TextField";
 import Popup from "./Popup";
 import { useAuth } from "../contexts/AuthContext";
-import { userPageRote } from "../constants/routes";
+import { userPageRoute } from "../constants/routes";
 
 export default function LoginForm() {
   const [showPopup, setShowPopup] = useState({
@@ -27,7 +27,7 @@ export default function LoginForm() {
             massage: "You Logined successfully",
             isError: false,
           });
-          history.push(userPageRote);
+          history.push(userPageRoute);
         })
         .catch((err) => {
           const errMassage = String(err).slice(13);

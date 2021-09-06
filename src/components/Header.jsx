@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { homePage } from "../constants/routes";
+import { homePageRoute } from "../constants/routes";
 
 export default function Header({ children }) {
   return (
@@ -10,7 +10,7 @@ export default function Header({ children }) {
     >
       <div className="container px-4 mx-auto flex items-center justify-between">
         <div className="flex justify-between items-center">
-          <a href={homePage} className="font-bold text-2xl text-gray-600">
+          <a href={homePageRoute} className="font-bold text-2xl text-gray-600">
             Your Test
           </a>
         </div>
