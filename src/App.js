@@ -23,6 +23,7 @@ import {
   solveTestPageRoute,
 } from "./constants/routes";
 import { useAuth } from "./contexts/AuthContext";
+import { auth } from "./libs/firebase";
 
 function AppWrapper() {
   const { currentUser } = useAuth();
@@ -30,13 +31,17 @@ function AppWrapper() {
   const location = useLocation();
 
   useEffect(() => {
-    if (
-      location.pathname === homePageRoute ||
-      location.pathname === loginPageRoute ||
-      location.pathname === registerPageRoute
-    ) {
-      history.push(userPageRoute);
-    }
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        if (
+          location.pathname === homePageRoute ||
+          location.pathname === loginPageRoute ||
+          location.pathname === registerPageRoute
+        ) {
+          history.push(userPageRoute);
+        }
+      }
+    });
   }, []);
 
   if (currentUser === undefined) {

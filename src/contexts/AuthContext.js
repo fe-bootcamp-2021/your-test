@@ -19,6 +19,15 @@ export function AuthProvider({ children }) {
     }
   }
 
+  // async function checkIfSignedIn() {
+  //   await auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       return true;
+  //     }
+  //     return false;
+  //   });
+  // }
+
   function signOut() {
     auth.signOut();
   }
@@ -44,6 +53,7 @@ export function AuthProvider({ children }) {
     signup,
     signOut,
     signIn,
+    // checkIfSignedIn,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
