@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { Link, useHistory } from "react-router-dom";
 import { getCreatedTest } from "../services/test.services";
 import { getTestQuestions } from "../services/question.services";
-import { errorPageRote } from "../constants/routes";
+import { errorPageRoute } from "../constants/routes";
 import Loader from "./Loader";
 import Button from "./Button";
 import Input from "./Input";
@@ -31,11 +31,11 @@ export default function TestingForm() {
           if (result.length > 0) {
             setTestQuestions(result);
           } else {
-            historyHook.push(errorPageRote);
+            historyHook.push(errorPageRoute);
           }
         });
       } else {
-        historyHook.push(errorPageRote);
+        historyHook.push(errorPageRoute);
       }
     });
   }, []);

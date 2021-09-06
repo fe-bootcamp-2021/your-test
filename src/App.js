@@ -6,12 +6,12 @@ import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
 import TestingForm from "./components/TestingForm";
 import {
-  homePage,
-  loginPageRote,
-  registerPageRote,
-  userPageRote,
-  errorPageRote,
-  solveTestPageRote,
+  homePageRoute,
+  loginPageRoute,
+  registerPageRoute,
+  userPageRoute,
+  errorPageRoute,
+  solveTestPageRoute,
 } from "./constants/routes";
 
 export default function App() {
@@ -19,22 +19,22 @@ export default function App() {
     <>
       <Router>
         <Switch>
-          <Route exact path={homePage}>
+          <Route exact path={homePageRoute}>
             <HomePage />
           </Route>
-          <Route exact path={loginPageRote}>
+          <Route exact path={loginPageRoute}>
             <LoginPage />
           </Route>
-          <Route exact path={registerPageRote}>
+          <Route exact path={registerPageRoute}>
             <RegisterPage />
           </Route>
-          <Route exact path={userPageRote}>
+          <Route exact path={userPageRoute}>
             <UserPage />
           </Route>
-          <Route exact path={solveTestPageRote}>
+          <Route exact path={solveTestPageRoute}>
             <TestingForm />
           </Route>
-          <Route exact path={errorPageRote}>
+          <Route exact path={errorPageRoute}>
             <ErrorPage />
           </Route>
           <Route exact>

@@ -7,7 +7,7 @@ import Button from "./Button";
 import TextField from "./TextField";
 import { useAuth } from "../contexts/AuthContext";
 import Popup from "./Popup";
-import { userPageRote } from "../constants/routes";
+import { userPageRoute } from "../constants/routes";
 import { addUser } from "../services/user.services";
 
 export default function RegistrationForm() {
@@ -41,7 +41,7 @@ export default function RegistrationForm() {
             massage: "You registered successfully",
             isError: false,
           });
-          historyHook.push(userPageRote);
+          historyHook.push(userPageRoute);
         })
         .catch((err) => {
           const errMassage = String(err).slice(13);

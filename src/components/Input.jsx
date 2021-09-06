@@ -7,7 +7,8 @@ const style = classNames(
   "border-gray-300",
   "p-2",
   "mb-4",
-  "outline-none"
+  "outline-none",
+  "shadow-lg"
 );
 
 export default function Input({ ...attr }) {
