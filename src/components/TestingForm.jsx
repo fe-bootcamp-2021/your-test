@@ -132,7 +132,7 @@ export default function TestingForm() {
                     ) : (
                       obj.answer.map((el) => {
                         return (
-                          <label htmlFor={i} className=" ml-6">
+                          <label htmlFor={i} className="block ml-6">
                             <Input
                               name={i}
                               type={obj.type}
