@@ -1,4 +1,3 @@
-
 export const loginPageRoute = "/loginPage";
 export const registerPageRoute = "/registerPage";
 export const userPageRoute = "/user";
