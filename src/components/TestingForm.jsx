@@ -1,10 +1,14 @@
+/* eslint-disable camelcase */
 /* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link, useHistory } from "react-router-dom";
+import { v4 as uuid_v4 } from "uuid";
 import { getCreatedTest } from "../services/test.services";
 import { getTestQuestions } from "../services/question.services";
 import { errorPageRote } from "../constants/routes";
+
 import Loader from "./Loader";
 import Button from "./Button";
 import Input from "./Input";
@@ -112,7 +116,7 @@ export default function TestingForm() {
           {testQuestions.length > 0
             ? testQuestions.map((obj, i) => {
                 return (
-                  <>
+                  <div key={uuid_v4()}>
                     <hr />
                     <p className="p-2 font-semibold">
                       <span>{i + 1}. </span>
@@ -141,7 +145,7 @@ export default function TestingForm() {
                         );
                       })
                     )}
-                  </>
+                  </div>
                 );
               })
             : null}

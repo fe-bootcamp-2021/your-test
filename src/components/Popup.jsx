@@ -4,8 +4,16 @@ import React, { useState, useEffect } from "react";
 
 const classNames = require("classnames");
 
-export default function Popup({ message, isError, isPopup, showPopup }) {
-  // const [showPopup, setShowPopup] = useState(isPopup);
+export default function Popup({
+  message,
+  isError,
+  isPopup,
+  showPopup,
+  setTimer,
+}) {
+  Popup.defaultProps = {
+    setTimer: 3000,
+  };
 
   const popupStyle = classNames({
     "flex flex-col p-8 shadow-md hover:shodow-lg rounded-2xl fixed top-20 right-3": true,
@@ -17,7 +25,7 @@ export default function Popup({ message, isError, isPopup, showPopup }) {
     if (isPopup) {
       const timer = setTimeout(() => {
         showPopup({ isPopup: false });
-      }, 3000);
+      }, setTimer);
       return () => clearTimeout(timer);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
