@@ -65,7 +65,7 @@ export default function TestingForm() {
     console.log(testQuestions);
   };
 
-  const handleCheck = (selected, { checked, value }) => {
+  const handleCheck = (selected = [], { checked, value }) => {
     let res = [];
     if (checked) {
       res = [...selected, value];
@@ -80,7 +80,6 @@ export default function TestingForm() {
     (i) =>
     ({ target }) => {
       setTestQuestions((prevState) => {
-        console.log(target.checked);
         return prevState.map((item, ind) => {
           if (i === ind) {
             if (target.type === "checkbox") {
@@ -138,6 +137,13 @@ export default function TestingForm() {
                               name={i}
                               type={obj.type}
                               value={el}
+                              checked={
+                                obj.type === "radio"
+                                  ? el === obj.selected
+                                  : obj.selected
+                                  ? obj.selected.find((a) => a === el)
+                                  : false
+                              }
                               onChange={handleChange(i)}
                             />
                             {el}
