@@ -50,7 +50,7 @@ export default function TestingForm() {
 
   const handleSubmit = () => {
     testQuestions.forEach((el) => {
-      if (!el.selected || el.selected === []) {
+      if (!el.selected || !el.selected.length) {
         throw alert("Please write all tasks");
       } else if (el.type === "checkbox") {
         if (
