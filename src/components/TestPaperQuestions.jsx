@@ -1,5 +1,5 @@
 // eslint-disable-next-line camelcase
-// import { v4 as uuid_v4 } from "uuid";
+import { v4 as uuid_v4 } from "uuid";
 import Input from "./Input";
 
 export default function TestPaperQuestions({ allQuestions }) {
@@ -7,7 +7,7 @@ export default function TestPaperQuestions({ allQuestions }) {
 
   return allQuestions.map((obj, i) => {
     return (
-      <>
+      <div key={uuid_v4()}>
         <hr />
         <p className="p-2 font-semibold">
           <span>{i + 1}. </span>
@@ -25,7 +25,7 @@ export default function TestPaperQuestions({ allQuestions }) {
         ) : (
           obj.answer.map((el) => {
             return (
-              <label htmlFor={i} className="block ml-6">
+              <label htmlFor={i} className="block ml-6" key={uuid_v4()}>
                 <Input
                   disabled
                   name={i}
@@ -42,7 +42,7 @@ export default function TestPaperQuestions({ allQuestions }) {
             );
           })
         )}
-      </>
+      </div>
     );
   });
 }
