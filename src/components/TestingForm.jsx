@@ -19,6 +19,9 @@ export default function TestingForm() {
   const [titleDec, setTitleDec] = useState({});
   const historyHook = useHistory();
 
+  const [state, setState] = useState("");
+  const [divKey, setDivKey] = useState(1);
+
   const testId = useParams();
 
   const [showPopup, setShowPopup] = useState({
@@ -115,7 +118,7 @@ export default function TestingForm() {
           {testQuestions.length > 0
             ? testQuestions.map((obj, i) => {
                 return (
-                  <div key={uuid_v4()}>
+                  <div key={i}>
                     <hr />
                     <p className="p-2 font-semibold">
                       <span>{i + 1}. </span>
@@ -123,31 +126,39 @@ export default function TestingForm() {
                     </p>
 
                     {obj.type === "text" ? (
-                      <Input
-                        name={i}
-                        type={obj.type}
-                        value={obj.selected}
-                        onChange={handleChange(i)}
-                      />
+                      <div>
+                        <Input
+                          name={i}
+                          type={obj.type}
+                          value={state}
+                          onChange={(e) => {
+                            setState(e.target.value);
+                            console.log(state);
+                          }}
+                        />
+                      </div>
                     ) : (
                       obj.answer.map((el) => {
                         return (
-                          <label htmlFor={i} className="block ml-6">
-                            <Input
-                              name={i}
-                              type={obj.type}
-                              value={el}
-                              checked={
-                                obj.type === "radio"
-                                  ? el === obj.selected
-                                  : obj.selected
-                                  ? obj.selected.find((a) => a === el)
-                                  : false
-                              }
-                              onChange={handleChange(i)}
-                            />
-                            {el}
-                          </label>
+                          <div key={uuid_v4()}>
+                            <label htmlFor={i} className="block ml-6">
+                              <Input
+                                name={i}
+                                type={obj.type}
+                                value={el}
+                                id={i}
+                                checked={
+                                  obj.type === "radio"
+                                    ? el === obj.selected
+                                    : obj.selected
+                                    ? obj.selected.find((a) => a === el)
+                                    : false
+                                }
+                                onChange={handleChange(i)}
+                              />
+                              {el}
+                            </label>
+                          </div>
                         );
                       })
                     )}
