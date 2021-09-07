@@ -3,11 +3,12 @@ import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import { useHistory } from "react-router-dom";
 import { loginScheme } from "../validationSchemes/loginScheme";
+import { useAuth } from "../contexts/AuthContext";
+import { userPageRoute } from "../constants/routes";
 import Button from "./Button";
 import TextField from "./TextField";
 import Popup from "./Popup";
-import { useAuth } from "../contexts/AuthContext";
-import { userPageRoute } from "../constants/routes";
+import Loader from "./Loader";
 
 export default function LoginForm() {
   const [showPopup, setShowPopup] = useState({
@@ -15,29 +16,36 @@ export default function LoginForm() {
     massage: "",
     isError: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
   const { signIn } = useAuth();
   const history = useHistory();
 
-  function handleLoginSubmit(userInfo) {
-    Promise.resolve().then(() => {
-      signIn(userInfo.email, userInfo.password)
-        .then(() => {
-          setShowPopup({
-            isPopup: true,
-            massage: "You Logined successfully",
-            isError: false,
-          });
-          history.push(userPageRoute);
-        })
-        .catch((err) => {
-          const errMassage = String(err).slice(13);
-          setShowPopup({
-            isPopup: true,
-            massage: errMassage,
-            isError: true,
-          });
+  function handleLoginSubmit(userInfo, onSubmit) {
+    setIsLoading(true);
+    return signIn(userInfo.email, userInfo.password)
+      .then(() => {
+        setShowPopup({
+          isPopup: true,
+          massage: "You Logined successfully",
+          isError: false,
         });
-    });
+        setIsLoading(false);
+        history.push(userPageRoute);
+        onSubmit();
+      })
+      .catch((err) => {
+        const errMassage = String(err).slice(13);
+        setShowPopup({
+          isPopup: true,
+          massage: errMassage,
+          isError: true,
+        });
+        setIsLoading(false);
+      });
+  }
+
+  if (isLoading) {
+    return <Loader />;
   }
 
   return (
@@ -55,8 +63,7 @@ export default function LoginForm() {
         }}
         validationSchema={loginScheme}
         onSubmit={(formData, { resetForm }) => {
-          handleLoginSubmit(formData);
-          resetForm();
+          handleLoginSubmit(formData, resetForm);
         }}
       >
         {() => (
