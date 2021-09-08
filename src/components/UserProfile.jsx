@@ -34,7 +34,7 @@ export default function UserProfile() {
   }, [currentUser, isAddSuccess]);
 
   return (
-    <div className="flex" style={{ minHeight: "92vh" }}>
+    <div className="flex max-w-7xl" style={{ minHeight: "92vh" }}>
       {messagePopup && <Popup {...messagePopup} />}
       <div className=" border-solid border-2 border-gray-100 w-72 shadow-xl">
         <Button buttonName="Create Test" color="green" onClick={handleClick} />
@@ -83,7 +83,7 @@ export default function UserProfile() {
             ))
           : null}
       </div>
-      <div className="min-h-full border-solid border-black flex items-center justify-center">
+      <div className="min-h-full w-3/4 border-solid border-black flex items-center justify-center">
         {isTestPopup && (
           <TestPopup
             getTestPopup={setIsTestPopup}
