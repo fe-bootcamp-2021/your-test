@@ -19,9 +19,6 @@ export default function TestingForm() {
   const [titleDec, setTitleDec] = useState({});
   const historyHook = useHistory();
 
-  const [state, setState] = useState("");
-  const [divKey, setDivKey] = useState(1);
-
   const testId = useParams();
 
   const [showPopup, setShowPopup] = useState({
@@ -54,7 +51,11 @@ export default function TestingForm() {
   const handleSubmit = () => {
     testQuestions.forEach((el) => {
       if (!el.selected || !el.selected.length) {
-        throw alert("Please write all tasks");
+        throw setShowPopup({
+          isPopup: true,
+          massage: "Please write all tasks",
+          isError: true,
+        });
       } else if (el.type === "checkbox") {
         if (
           el.correctAnswer.sort().join(",") !== el.selected.sort().join(",")
@@ -106,6 +107,7 @@ export default function TestingForm() {
             message={showPopup.massage}
             isError={showPopup.isError}
             isPopup={showPopup.isPopup}
+            showPopup={setShowPopup}
           />
           <h1 className="text-4xl">
             {Object.keys(titleDec).length > 0 ? titleDec.testTitle : "null"}
@@ -130,11 +132,8 @@ export default function TestingForm() {
                         <Input
                           name={i}
                           type={obj.type}
-                          value={state}
-                          onChange={(e) => {
-                            setState(e.target.value);
-                            console.log(state);
-                          }}
+                          value={obj.selected}
+                          onChange={handleChange(i)}
                         />
                       </div>
                     ) : (
