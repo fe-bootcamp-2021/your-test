@@ -6,7 +6,6 @@ export default function Button({ buttonName, color, width = "full", ...attr }) {
   const buttonStyle = classNames(
     `w-${width}`,
     "mb-1",
-    "block",
     "px-6",
     "py-2",
     "text-xs",
