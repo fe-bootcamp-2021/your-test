@@ -44,22 +44,31 @@ export default function SelectQuestion({ setAnswerSection, answerSection }) {
     return res;
   };
 
-  const handleChange = (i) => (e) => {
-    setAnswerSection((prevState) => {
-      return {
-        ...prevState,
-        answer: answerSection.answer.map((el, index) => {
-          return i === index ? e.target.value : el;
-        }),
-      };
-    });
-  };
-
   const handleCorrectAnswer = ({ target }) => {
     setAnswerSection((prevState) => {
       return {
         ...prevState,
         correctAnswer: handleCheck(answerSection.correctAnswer, target),
+      };
+    });
+  };
+
+  const handleChange = (i) => (e) => {
+    setAnswerSection((prevState) => {
+      return {
+        ...prevState,
+        answer: answerSection.answer.map((el, index) => {
+          if (i === index) {
+            answerSection.correctAnswer.forEach((a, j) => {
+              if (a === el) {
+                answerSection.correctAnswer[j] = e.target.value;
+              }
+            });
+
+            return e.target.value;
+          }
+          return el;
+        }),
       };
     });
   };
