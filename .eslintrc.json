@@ -3,18 +3,11 @@
     "browser": true,
     "node": true
   },
-  "extends": [
-    "react-app",
-    "airbnb",
-    "prettier"
-  ],
+  "extends": ["react-app", "airbnb", "prettier"],
   "parserOptions": {
     "ecmaVersion": 12
   },
-  "plugins": [
-    "react",
-    "prettier"
-  ],
+  "plugins": ["react", "prettier"],
   "rules": {
     "quotes": "off",
     "react/prefer-stateless-function": "off",
@@ -37,6 +30,8 @@
     "eslint-disable-next-line": "off",
     "prefer-promise-reject-errors": "off",
     "consistent-return": "off",
+    "no-nested-ternary": "off",
+    "react/no-array-index-key": "off",
     // "eslint object-curly-newline": ["error", { "consistent": false }],
     "prettier/prettier": [
       "error",
@@ -44,10 +39,7 @@
         // "printWidth": 80,
         // "trailingComma": "es5",
         "endOfLine": "auto",
-        "indent": [
-          "error",
-          6
-        ]
+        "indent": ["error", 6]
         // "jsxSingleQuote": false,
         // "singleQuote": false,
         // "useTabs": false

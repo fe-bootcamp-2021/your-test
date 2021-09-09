@@ -20,6 +20,9 @@ export default function TestingForm() {
   const [titleDec, setTitleDec] = useState({});
   const historyHook = useHistory();
 
+  const [state, setState] = useState("");
+  const [divKey, setDivKey] = useState(1);
+
   const testId = useParams();
 
   const [showPopup, setShowPopup] = useState({
@@ -51,7 +54,7 @@ export default function TestingForm() {
 
   const handleSubmit = () => {
     testQuestions.forEach((el) => {
-      if (!el.selected || el.selected === []) {
+      if (!el.selected || !el.selected.length) {
         throw alert("Please write all tasks");
       } else if (el.type === "checkbox") {
         if (
@@ -66,7 +69,7 @@ export default function TestingForm() {
     console.log(testQuestions);
   };
 
-  const handleCheck = (selected, { checked, value }) => {
+  const handleCheck = (selected = [], { checked, value }) => {
     let res = [];
     if (checked) {
       res = [...selected, value];
@@ -81,7 +84,6 @@ export default function TestingForm() {
     (i) =>
     ({ target }) => {
       setTestQuestions((prevState) => {
-        console.log(target.checked);
         return prevState.map((item, ind) => {
           if (i === ind) {
             if (target.type === "checkbox") {
@@ -125,24 +127,39 @@ export default function TestingForm() {
                     </p>
 
                     {obj.type === "text" ? (
-                      <Input
-                        name={i}
-                        type={obj.type}
-                        value={obj.selected}
-                        onChange={handleChange(i)}
-                      />
+                      <div>
+                        <Input
+                          name={i}
+                          type={obj.type}
+                          value={state}
+                          onChange={(e) => {
+                            setState(e.target.value);
+                            console.log(state);
+                          }}
+                        />
+                      </div>
                     ) : (
                       obj.answer.map((el, index) => {
                         return (
-                          <label htmlFor={i} className=" ml-6" key={index + 10}>
-                            <Input
-                              name={i}
-                              type={obj.type}
-                              value={el}
-                              onChange={handleChange(i)}
-                            />
-                            {el}
-                          </label>
+                          <div key={uuid_v4()}>
+                            <label htmlFor={i} className="block ml-6">
+                              <Input
+                                name={i}
+                                type={obj.type}
+                                value={el}
+                                id={i}
+                                checked={
+                                  obj.type === "radio"
+                                    ? el === obj.selected
+                                    : obj.selected
+                                    ? obj.selected.find((a) => a === el)
+                                    : false
+                                }
+                                onChange={handleChange(i)}
+                              />
+                              {el}
+                            </label>
+                          </div>
                         );
                       })
                     )}

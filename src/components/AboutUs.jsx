@@ -8,13 +8,13 @@ export default function AboutUs() {
           <span className="block xl:inline text-indigo-600">Your Test</span>{" "}
         </h1>
         <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-          `Hello dear user. On this site, you can create your test. We tried to
+          Hello dear user. On this site, you can create your test. We tried to
           make you enjoy everything that we have done. They did everything for
-          you `
+          you:
         </p>
         <div className="flex flex-col">
           <a
-            className="m-5 text-3xl"
+            className="m-5 ml-0 text-3xl"
             rel="noreferrer"
             target="_blank"
             href="https://github.com/Vahe1209"
@@ -22,7 +22,7 @@ export default function AboutUs() {
             Vahe Hovhannisyan
           </a>
           <a
-            className="m-5 text-3xl"
+            className="m-5 ml-0 text-3xl"
             rel="noreferrer"
             target="_blank"
             href="https://github.com/dav26072000"
@@ -30,7 +30,7 @@ export default function AboutUs() {
             David Matiashvili
           </a>
           <a
-            className="m-5 text-3xl"
+            className="m-5 ml-0 text-3xl"
             rel="noreferrer"
             target="_blank"
             href="https://github.com/Anri-H"
