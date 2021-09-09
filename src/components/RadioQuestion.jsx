@@ -1,8 +1,18 @@
-import React from "react";
+import { useEffect } from "react";
+
 import Button from "./Button";
 import Input from "./Input";
 
 export default function RadioQuestion({ setAnswerSection, answerSection }) {
+  useEffect(() => {
+    setAnswerSection((prevState) => {
+      return {
+        ...prevState,
+        answer: [""],
+      };
+    });
+  }, []);
+
   const addAnswer = () => {
     setAnswerSection((prevState) => {
       return {
@@ -34,15 +44,6 @@ export default function RadioQuestion({ setAnswerSection, answerSection }) {
     });
   };
 
-  // const handlePoint = ({ target }) => {
-  //   setAnswerSection((prevState) => {
-  //     return {
-  //       ...prevState,
-  //       point: target.value,
-  //     };
-  //   });
-  // };
-
   const handleCorrectAnswer = ({ target }) => {
     setAnswerSection((prevState) => {
       return {
@@ -68,7 +69,12 @@ export default function RadioQuestion({ setAnswerSection, answerSection }) {
           </div>
         );
       })}
-      <Button buttonName="Add" color="blue" onClick={addAnswer} />
+      <Button
+        buttonName="Add"
+        disabled={!answerSection.answer[answerSection.answer.length - 1]}
+        color="blue"
+        onClick={addAnswer}
+      />
     </div>
   );
 }
