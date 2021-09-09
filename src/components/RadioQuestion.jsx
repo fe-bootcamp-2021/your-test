@@ -33,22 +33,28 @@ export default function RadioQuestion({ setAnswerSection, answerSection }) {
     });
   };
 
-  const handleChange = (i) => (e) => {
-    setAnswerSection((prevState) => {
-      return {
-        ...prevState,
-        answer: answerSection.answer.map((el, index) => {
-          return i === index ? e.target.value : el;
-        }),
-      };
-    });
-  };
-
   const handleCorrectAnswer = ({ target }) => {
     setAnswerSection((prevState) => {
       return {
         ...prevState,
         correctAnswer: target.value,
+      };
+    });
+  };
+
+  const handleChange = (i) => (e) => {
+    setAnswerSection((prevState) => {
+      return {
+        ...prevState,
+        answer: answerSection.answer.map((el, index) => {
+          if (i === index) {
+            if (answerSection.correctAnswer === el) {
+              handleCorrectAnswer(e);
+            }
+            return e.target.value;
+          }
+          return el;
+        }),
       };
     });
   };
