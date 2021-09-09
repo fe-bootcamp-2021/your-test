@@ -4,7 +4,7 @@ import { Formik, Form } from "formik";
 import { useHistory } from "react-router-dom";
 import { loginScheme } from "../validationSchemes/loginScheme";
 import { useAuth } from "../contexts/AuthContext";
-import { userPageRoute } from "../constants/routes";
+import { registerPageRoute, userPageRoute } from "../constants/routes";
 import Button from "./Button";
 import TextField from "./TextField";
 import Popup from "./Popup";
@@ -67,26 +67,31 @@ export default function LoginForm() {
         }}
       >
         {() => (
-          <div className="App max-w-full flex align-center justify-center">
-            <Form className="w-1/3">
-              <TextField
-                labelText="Email"
-                name="email"
-                type="email"
-                // className="w-1/2"
-              />
-              <TextField
-                labelText="Password"
-                name="password"
-                type="password"
-                // className="w-1/2"
-              />
-              <Button
-                type="submit"
-                className="mt-10 w-64 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                buttonName="Login"
-              />
-            </Form>
+          <div className="min-w-full h-screen flex items-center justify-center">
+            <div className="min-w-full flex items-center justify-center">
+              <Form className="w-1/4 flex flex-col items-center justify-center p-5 border-2 border-blue-700 rounded-3xl	">
+                <TextField labelText="Email" name="email" type="email" />
+                <TextField
+                  labelText="Password"
+                  name="password"
+                  type="password"
+                />
+                <Button
+                  type="submit"
+                  className="mb-5 w-1/2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                  buttonName="Login"
+                />
+                <div className="w-full flex items-center justify-center">
+                  <div className="text-xl">Don`t have an account? </div>
+                  <a
+                    className="underline ml-2 text-blue-500 hover:text-blue-700 hover:no-underline"
+                    href={registerPageRoute}
+                  >
+                    Sign Up
+                  </a>
+                </div>
+              </Form>
+            </div>
           </div>
         )}
       </Formik>
