@@ -38,3 +38,40 @@ export const getTestQuestions = function ({ testId }) {
       });
   });
 };
+
+export const getQuestionsNoCorrectAnswers = function ({ testId }) {
+  const currentTestQuestions = [];
+  return new Promise((resolve) => {
+    db.ref(`/questions/`)
+      .orderByChild("testId")
+      .equalTo(testId)
+      .once("value", (snapshot) => {
+        snapshot.forEach((item) => {
+          currentTestQuestions.push({
+            answer: item.val().answer,
+            point: item.val().point,
+            question: item.val().question,
+            type: item.val().type,
+          });
+        });
+        resolve(currentTestQuestions);
+      });
+  });
+};
+
+export const getCorrectAnswers = function ({ testId }) {
+  const currentTestQuestions = [];
+  return new Promise((resolve) => {
+    db.ref(`/questions/`)
+      .orderByChild("testId")
+      .equalTo(testId)
+      .once("value", (snapshot) => {
+        snapshot.forEach((item) => {
+          currentTestQuestions.push({
+            correctAnswer: item.val().correctAnswer,
+          });
+        });
+        resolve(currentTestQuestions);
+      });
+  });
+};

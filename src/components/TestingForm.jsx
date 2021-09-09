@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable camelcase */
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -116,7 +117,7 @@ export default function TestingForm() {
           {testQuestions.length > 0
             ? testQuestions.map((obj, i) => {
                 return (
-                  <div key={uuid_v4()}>
+                  <div key={i}>
                     <hr />
                     <p className="p-2 font-semibold">
                       <span>{i + 1}. </span>
@@ -131,9 +132,9 @@ export default function TestingForm() {
                         onChange={handleChange(i)}
                       />
                     ) : (
-                      obj.answer.map((el) => {
+                      obj.answer.map((el, index) => {
                         return (
-                          <label htmlFor={i} className=" ml-6">
+                          <label htmlFor={i} className=" ml-6" key={index + 10}>
                             <Input
                               name={i}
                               type={obj.type}
