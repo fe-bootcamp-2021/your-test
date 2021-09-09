@@ -1,16 +1,19 @@
 import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
-import UserProfile from "../components/UserProfile";
+import Results from "../components/Results";
 import { useAuth } from "../contexts/AuthContext";
-import { registerPageRoute, resultsPageRoute } from "../constants/routes";
+import { registerPageRoute, userPageRoute } from "../constants/routes";
 
-export default function UserPage() {
+export default function ResultsPage() {
   const history = useHistory();
-  const { signOut } = useAuth();
+  const { signOut, currentUser } = useAuth();
 
   return (
     <>
       <Header>
+        <div className="p-2 lg:px-4 md:mx-2 text-gray-600 font-bold text-center border border-transparent rounded hover:bg-gray-100 hover:text-gray-700 transition-colors duration-300">
+          {currentUser.email}
+        </div>
         <button
           className="p-2 lg:px-4 md:mx-2 text-gray-600 font-bold text-center border border-transparent rounded hover:bg-gray-100 hover:text-gray-700 transition-colors duration-300"
           onClick={async () => {
@@ -23,13 +26,13 @@ export default function UserPage() {
         <button
           className="p-2 lg:px-4 md:mx-2 text-gray-600 font-bold text-center border border-transparent rounded hover:bg-gray-100 hover:text-gray-700 transition-colors duration-300"
           onClick={async () => {
-            await history.replace(resultsPageRoute);
+            await history.replace(userPageRoute);
           }}
         >
-          Results
+          Tests
         </button>
       </Header>
-      <UserProfile />
+      <Results />
     </>
   );
 }

@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import UserPage from "./pages/UserPage";
+import ResultsPage from "./pages/ResultsPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
@@ -21,6 +22,7 @@ import {
   userPageRoute,
   errorPageRoute,
   solveTestPageRoute,
+  resultsPageRoute,
 } from "./constants/routes";
 import { useAuth } from "./contexts/AuthContext";
 import { auth } from "./libs/firebase";
@@ -54,6 +56,9 @@ function AppWrapper() {
         <Switch>
           <Route exact path={userPageRoute}>
             <UserPage />
+          </Route>
+          <Route exact path={resultsPageRoute}>
+            <ResultsPage />
           </Route>
           <Route exact path={solveTestPageRoute}>
             <TestingForm />

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable camelcase */
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -138,7 +139,7 @@ export default function TestingForm() {
                         />
                       </div>
                     ) : (
-                      obj.answer.map((el) => {
+                      obj.answer.map((el, index) => {
                         return (
                           <div key={uuid_v4()}>
                             <label htmlFor={i} className="block ml-6">
