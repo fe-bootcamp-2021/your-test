@@ -34,38 +34,56 @@ export default function UserProfile() {
   }, [currentUser, isAddSuccess]);
 
   return (
-    <div className="flex" style={{ minHeight: "92vh" }}>
+    <div className="flex max-w-7xl" style={{ minHeight: "92vh" }}>
       {messagePopup && <Popup {...messagePopup} />}
-      <div className="min-h-full border-solid border-2 border-gray-100 w-2/12 shadow-xl">
+      <div className=" border-solid border-2 border-gray-100 w-72 shadow-xl">
         <Button buttonName="Create Test" color="green" onClick={handleClick} />
         <div>{currentUser && currentUser.email}</div>
         {Object.keys(currentUserTests).length > 0
           ? Object.values(currentUserTests).map((elem) => (
-              <Button
-                buttonName={elem[1].testTitle}
-                color="blue"
-                key={elem[0]}
-                onClick={(e) => {
-                  e.preventDefault();
-                  Promise.resolve(true)
-                    .then(() => {
-                      setTestPaperData((prev) => ({
-                        ...prev,
-                        testId: elem[0],
-                        testInfo: elem[1],
-                      }));
+              <div className="relative">
+                <Button
+                  buttonName={elem[1].testTitle}
+                  color="blue"
+                  key={elem[0]}
+                  // width="10/12"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    Promise.resolve(true)
+                      .then(() => {
+                        setTestPaperData((prev) => ({
+                          ...prev,
+                          testId: elem[0],
+                          testInfo: elem[1],
+                        }));
 
-                      return true;
-                    })
-                    .then(() => {
-                      setIsTestPaper(true);
-                    });
-                }}
-              />
+                        return true;
+                      })
+                      .then(() => {
+                        setIsTestPaper(true);
+                      });
+                  }}
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="inline-block absolute right-1 mt-1 h-8 w-6 hover:text-red-500 cursor-pointer"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  onClick={() => alert("Delete func")}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+              </div>
             ))
           : null}
       </div>
-      <div className="min-h-full w-10/12 border-solid border-black flex items-center justify-center">
+      <div className="min-h-full w-3/4 border-solid border-black flex items-center justify-center">
         {isTestPopup && (
           <TestPopup
             getTestPopup={setIsTestPopup}
