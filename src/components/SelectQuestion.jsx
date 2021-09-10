@@ -5,12 +5,14 @@ import Input from "./Input";
 
 export default function SelectQuestion({ setAnswerSection, answerSection }) {
   useEffect(() => {
-    setAnswerSection((prevState) => {
-      return {
-        ...prevState,
-        answer: [""],
-      };
-    });
+    if (!answerSection.answer.length) {
+      setAnswerSection((prevState) => {
+        return {
+          ...prevState,
+          answer: [""],
+        };
+      });
+    }
   }, []);
 
   const addAnswer = () => {
@@ -82,6 +84,11 @@ export default function SelectQuestion({ setAnswerSection, answerSection }) {
               name="asdd"
               value={e}
               type="checkbox"
+              checked={
+                answerSection.correctAnswer
+                  ? answerSection.correctAnswer.find((a) => a === e)
+                  : false
+              }
               onChange={handleCorrectAnswer}
             />
             <Input type="text" value={e} onChange={handleChange(i)} />

@@ -10,6 +10,7 @@ import Popup from "./Popup";
 const questionSection = classNames();
 
 export default function QuestionForm({
+  changeQuestion,
   closeQuestionForm,
   setAllQuestions,
   testId,
@@ -22,6 +23,12 @@ export default function QuestionForm({
     point: 0,
   });
 
+  useEffect(() => {
+    if (changeQuestion) {
+      setAnswerSection({ ...changeQuestion });
+    }
+  }, []);
+
   const [showPopup, setShowPopup] = useState({
     isPopup: false,
     massage: "",
@@ -31,8 +38,10 @@ export default function QuestionForm({
   const handleSelect = ({ target }) => {
     setAnswerSection((prevState) => ({
       ...prevState,
+      answer: target.value === "text" ? [] : answerSection.answer,
       type: target.value,
       point: target.value === "text" ? 0 : 1,
+      correctAnswer: [],
     }));
   };
 
@@ -53,33 +62,36 @@ export default function QuestionForm({
         });
       }
     });
-    console.log({ answerSection });
-    addQuestions({
-      answer: answerSection.answer,
-      correctAnswer: answerSection.correctAnswer,
-      point: Number(answerSection.point),
-      question: answerSection.question,
-      type: answerSection.type,
-      testId,
-    })
-      .then(() => {
-        setAllQuestions((prev) => {
-          return [
-            ...prev,
-            {
-              answer: answerSection.answer,
-              correctAnswer: answerSection.correctAnswer,
-              point: Number(answerSection.point),
-              question: answerSection.question,
-              type: answerSection.type,
-            },
-          ];
-        });
-      })
-      .then(() => {
-        closeQuestionForm(false);
-        console.log("ekela");
-      });
+    closeQuestionForm(false);
+
+    changeQuestion
+      ? console.log(answerSection)
+      : addQuestions({
+          answer: answerSection.answer,
+          correctAnswer: answerSection.correctAnswer,
+          point: Number(answerSection.point),
+          question: answerSection.question,
+          type: answerSection.type,
+          testId,
+        })
+          .then(() => {
+            setAllQuestions((prev) => {
+              return [
+                ...prev,
+                {
+                  answer: answerSection.answer,
+                  correctAnswer: answerSection.correctAnswer,
+                  point: Number(answerSection.point),
+                  question: answerSection.question,
+                  type: answerSection.type,
+                },
+              ];
+            });
+          })
+          .then(() => {
+            closeQuestionForm(false);
+            console.log("ekela");
+          });
   };
 
   const handlePoint = ({ target }) => {
@@ -90,7 +102,6 @@ export default function QuestionForm({
   };
 
   const questionType = (type) => {
-    console.log(type);
     switch (type) {
       case "text":
         return <Input placeholder="Enter your text" disabled type="text" />;
@@ -184,7 +195,7 @@ export default function QuestionForm({
             }}
           />
           <Button
-            buttonName="Create"
+            buttonName={changeQuestion ? "Save" : "Create"}
             color="green"
             onClick={handleCreateQuestion}
           />
