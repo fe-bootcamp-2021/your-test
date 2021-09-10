@@ -13,7 +13,6 @@ export default function TextField({ labelText, name, type, ...attr }) {
     "rounded-lg",
     "border-blue-800",
     "p-2",
-    "mb-4",
     "outline-none",
     "focus:bg-blue-500",
     "focus:text-white"
@@ -29,7 +28,7 @@ export default function TextField({ labelText, name, type, ...attr }) {
   }
 
   return (
-    <div className="mb-5 w-full">
+    <div className="mb-5 w-full h-20">
       <label
         ref={labelRef}
         htmlFor={name}
