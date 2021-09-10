@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+/* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
@@ -6,11 +7,13 @@ import Button from "./Button";
 import TestPopup from "./TestPopup";
 import TestPaper from "./TestPaper";
 import Popup from "./Popup";
-import { getUserTests } from "../services/test.services";
+import { getUserTests, deleteTest } from "../services/test.services";
 
 export default function UserProfile() {
   const { currentUser } = useAuth();
+
   const [isAddSuccess, setIsAddSuccess] = useState();
+  const [isRemoveSuccess, setIsRemoveSuccess] = useState();
   const [isTestPopup, setIsTestPopup] = useState(false);
 
   const [isTestPaper, setIsTestPaper] = useState(false);
@@ -28,20 +31,23 @@ export default function UserProfile() {
     if (currentUser) {
       const currentUserUId = String(currentUser.uid);
       getUserTests({ userId: currentUserUId }).then((res) => {
-        setCurrentUserTests((pre) => ({ ...pre, ...res }));
+        console.log("render");
+        setCurrentUserTests((pre) => ({ ...res }));
       });
     }
-  }, [currentUser, isAddSuccess]);
+  }, [currentUser, isAddSuccess, isRemoveSuccess]);
 
   return (
-    <div className="flex max-w-7xl" style={{ minHeight: "92vh" }}>
+    <div
+      className="flex justify-between max-w-full"
+      style={{ minHeight: "92vh" }}
+    >
       {messagePopup && <Popup {...messagePopup} />}
       <div className=" border-solid border-2 border-gray-100 w-72 shadow-xl">
         <Button buttonName="Create Test" color="green" onClick={handleClick} />
-        <div>{currentUser && currentUser.email}</div>
         {Object.keys(currentUserTests).length > 0
-          ? Object.values(currentUserTests).map((elem) => (
-              <div className="relative">
+          ? Object.values(currentUserTests).map((elem, i) => (
+              <div className="relative" key={i}>
                 <Button
                   buttonName={elem[1].testTitle}
                   color="blue"
@@ -70,7 +76,15 @@ export default function UserProfile() {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  onClick={() => alert("Delete func")}
+                  onClick={() => {
+                    deleteTest({ testId: elem[0] })
+                      .then(() => {
+                        setIsRemoveSuccess((prev) => !prev);
+                      })
+                      .then(() => {
+                        setIsTestPaper(false);
+                      });
+                  }}
                 >
                   <path
                     strokeLinecap="round"
@@ -83,7 +97,7 @@ export default function UserProfile() {
             ))
           : null}
       </div>
-      <div className="min-h-full w-3/4 border-solid border-black flex items-center justify-center">
+      <div className="min-h-full w-full border-solid border-black flex items-center justify-center">
         {isTestPopup && (
           <TestPopup
             getTestPopup={setIsTestPopup}

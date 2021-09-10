@@ -33,11 +33,13 @@ export default function TestPopup({
           )
           .then(() => {
             getTestPopup((prev) => !prev);
-            setIsAddSuccess(true);
             setMessagePopup({
               message: "Created successfully",
               isError: false,
             });
+          })
+          .then(() => {
+            setIsAddSuccess((prev) => !prev);
           });
       });
 

@@ -2,7 +2,7 @@ import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
 import Results from "../components/Results";
 import { useAuth } from "../contexts/AuthContext";
-import { registerPageRoute, userPageRoute } from "../constants/routes";
+import { loginPageRoute, userPageRoute } from "../constants/routes";
 
 export default function ResultsPage() {
   const history = useHistory();
@@ -12,17 +12,8 @@ export default function ResultsPage() {
     <>
       <Header>
         <div className="p-2 lg:px-4 md:mx-2 text-gray-600 font-bold text-center border border-transparent rounded hover:bg-gray-100 hover:text-gray-700 transition-colors duration-300">
-          {currentUser.email}
+          {currentUser && currentUser.email}
         </div>
-        <button
-          className="p-2 lg:px-4 md:mx-2 text-gray-600 font-bold text-center border border-transparent rounded hover:bg-gray-100 hover:text-gray-700 transition-colors duration-300"
-          onClick={async () => {
-            await signOut();
-            await history.replace(registerPageRoute);
-          }}
-        >
-          Log out
-        </button>
         <button
           className="p-2 lg:px-4 md:mx-2 text-gray-600 font-bold text-center border border-transparent rounded hover:bg-gray-100 hover:text-gray-700 transition-colors duration-300"
           onClick={async () => {
@@ -30,6 +21,15 @@ export default function ResultsPage() {
           }}
         >
           Tests
+        </button>
+        <button
+          className="p-2 lg:px-4 md:mx-2 text-gray-600 font-bold text-center border border-transparent rounded hover:bg-gray-100 hover:text-gray-700 transition-colors duration-300"
+          onClick={async () => {
+            await signOut();
+            await history.replace(loginPageRoute);
+          }}
+        >
+          Log out
         </button>
       </Header>
       <Results />
