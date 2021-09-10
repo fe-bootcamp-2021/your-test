@@ -5,12 +5,14 @@ import Input from "./Input";
 
 export default function RadioQuestion({ setAnswerSection, answerSection }) {
   useEffect(() => {
-    setAnswerSection((prevState) => {
-      return {
-        ...prevState,
-        answer: [""],
-      };
-    });
+    if (!answerSection.answer.length) {
+      setAnswerSection((prevState) => {
+        return {
+          ...prevState,
+          answer: [""],
+        };
+      });
+    }
   }, []);
 
   const addAnswer = () => {
@@ -68,6 +70,7 @@ export default function RadioQuestion({ setAnswerSection, answerSection }) {
               name="asdd"
               value={e}
               type="radio"
+              checked={e === answerSection.correctAnswer}
               onChange={handleCorrectAnswer}
             />
             <Input type="text" value={e} onChange={handleChange(i)} />
