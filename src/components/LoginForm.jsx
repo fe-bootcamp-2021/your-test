@@ -67,8 +67,8 @@ export default function LoginForm() {
         }}
       >
         {() => (
-          <div className=" h-screen flex items-center justify-center">
-            <div className=" flex items-center justify-center">
+          <div className="min-w-full h-screen flex items-center justify-center">
+            <div className="min-w-full flex items-center justify-center">
               <Form className="w-96 flex flex-col items-center justify-center p-5 border-2 border-blue-700 rounded-3xl	">
                 <TextField labelText="Email" name="email" type="email" />
                 <TextField
