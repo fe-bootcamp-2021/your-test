@@ -1,8 +1,18 @@
-import React from "react";
+import { useEffect } from "react";
+
 import Button from "./Button";
 import Input from "./Input";
 
 export default function SelectQuestion({ setAnswerSection, answerSection }) {
+  useEffect(() => {
+    setAnswerSection((prevState) => {
+      return {
+        ...prevState,
+        answer: [""],
+      };
+    });
+  }, []);
+
   const addAnswer = () => {
     setAnswerSection((prevState) => {
       return {
@@ -34,31 +44,31 @@ export default function SelectQuestion({ setAnswerSection, answerSection }) {
     return res;
   };
 
-  const handleChange = (i) => (e) => {
-    setAnswerSection((prevState) => {
-      return {
-        ...prevState,
-        answer: answerSection.answer.map((el, index) => {
-          return i === index ? e.target.value : el;
-        }),
-      };
-    });
-  };
-
-  // const handlePoint = ({ target }) => {
-  //   setAnswerSection((prevState) => {
-  //     return {
-  //       ...prevState,
-  //       point: target.value,
-  //     };
-  //   });
-  // };
-
   const handleCorrectAnswer = ({ target }) => {
     setAnswerSection((prevState) => {
       return {
         ...prevState,
         correctAnswer: handleCheck(answerSection.correctAnswer, target),
+      };
+    });
+  };
+
+  const handleChange = (i) => (e) => {
+    setAnswerSection((prevState) => {
+      return {
+        ...prevState,
+        answer: answerSection.answer.map((el, index) => {
+          if (i === index) {
+            answerSection.correctAnswer.forEach((a, j) => {
+              if (a === el) {
+                answerSection.correctAnswer[j] = e.target.value;
+              }
+            });
+
+            return e.target.value;
+          }
+          return el;
+        }),
       };
     });
   };
@@ -79,7 +89,12 @@ export default function SelectQuestion({ setAnswerSection, answerSection }) {
           </div>
         );
       })}
-      <Button buttonName="Add" color="blue" onClick={addAnswer} />
+      <Button
+        buttonName="Add"
+        color="blue"
+        disabled={!answerSection.answer[answerSection.answer.length - 1]}
+        onClick={addAnswer}
+      />
     </div>
   );
 }

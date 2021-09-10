@@ -5,6 +5,7 @@ import Input from "./Input";
 import RadioQuestion from "./RadioQuestion";
 import { addQuestions, getTestQuestions } from "../services/question.services";
 import SelectQuestion from "./SelectQuestion";
+import Popup from "./Popup";
 
 const questionSection = classNames();
 
@@ -21,6 +22,12 @@ export default function QuestionForm({
     point: 0,
   });
 
+  const [showPopup, setShowPopup] = useState({
+    isPopup: false,
+    massage: "",
+    isError: false,
+  });
+
   const handleSelect = ({ target }) => {
     setAnswerSection((prevState) => ({
       ...prevState,
@@ -30,6 +37,22 @@ export default function QuestionForm({
   };
 
   const handleCreateQuestion = () => {
+    if (!answerSection.question) {
+      throw setShowPopup({
+        isPopup: true,
+        massage: "You didn't enter the question",
+        isError: true,
+      });
+    }
+    answerSection.answer.forEach((e) => {
+      if (!e) {
+        throw setShowPopup({
+          isPopup: true,
+          massage: "Please fill in the blank options",
+          isError: true,
+        });
+      }
+    });
     console.log({ answerSection });
     addQuestions({
       answer: answerSection.answer,
@@ -122,6 +145,12 @@ export default function QuestionForm({
 
   return (
     <div className="absolute top-1/3 w-1/2 flex flex-col justify-center items-center">
+      <Popup
+        message={showPopup.massage}
+        isError={showPopup.isError}
+        isPopup={showPopup.isPopup}
+        showPopup={setShowPopup}
+      />
       <div className="w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
         Create question
       </div>
@@ -142,32 +171,7 @@ export default function QuestionForm({
           <option value="text">Text</option>
           <option value="radio">One of the list</option>
           <option value="checkbox">Several from the list</option>
-          <option value="list">Drop-down list</option>
         </select>
-
-        {/* {answerSection.type === "text" ? (
-          <Input placeholder="Enter your text" disabled type="text" />
-        ) : (
-          <>
-            <RadioQuestion
-              setAnswerSection={setAnswerSection}
-              answerSection={answerSection}
-            />
-            <span>Point</span>
-            <select value={answerSection.point} onChange={handlePoint}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </>
-        )} */}
 
         {questionType(answerSection.type)}
 
