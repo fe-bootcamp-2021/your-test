@@ -7,7 +7,7 @@ import Button from "./Button";
 import TextField from "./TextField";
 import { useAuth } from "../contexts/AuthContext";
 import Popup from "./Popup";
-import { userPageRoute } from "../constants/routes";
+import { loginPageRoute, userPageRoute } from "../constants/routes";
 import { addUser } from "../services/user.services";
 
 export default function RegistrationForm() {
@@ -78,45 +78,37 @@ export default function RegistrationForm() {
         }}
       >
         {() => (
-          <div className="App max-w-full flex align-center justify-center">
-            <Form className="w-1/3">
-              <TextField
-                labelText="First Name"
-                name="firstName"
-                type="text"
-                // className="w-1/2"
-              />
-              <TextField
-                labelText="Last Name"
-                name="lastName"
-                type="text"
-                // className="w-1/2"
-              />
-              <TextField
-                labelText="Email"
-                name="email"
-                type="email"
-                // className="w-1/2"
-              />
-              <TextField
-                labelText="Password"
-                name="password"
-                type="password"
-                // className="w-1/2"
-              />
-              <TextField
-                labelText="Confirm Password"
-                name="confirmPassword"
-                type="password"
-                // className="w-1/2"
-              />
-
-              <Button
-                type="submit"
-                className="mt-10 w-64 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                buttonName="Submit"
-              />
-            </Form>
+          <div className="min-w-full h-screen flex items-center justify-center">
+            <div className="min-w-full flex items-center justify-center">
+              <Form className="w-1/4 flex flex-col items-center justify-center p-5 border-2 border-blue-700 rounded-3xl	">
+                <TextField labelText="Full Name" name="firstName" type="text" />
+                <TextField labelText="Email" name="email" type="email" />
+                <TextField
+                  labelText="Password"
+                  name="password"
+                  type="password"
+                />
+                <TextField
+                  labelText="Confirm Password"
+                  name="confirmPassword"
+                  type="password"
+                />
+                <Button
+                  type="submit"
+                  className="mb-5 w-1/2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                  buttonName="Submit"
+                />
+                <div className="w-full flex items-center justify-center">
+                  <div className="text-xl">Already have an account?</div>
+                  <a
+                    className="underline ml-2 text-blue-500 hover:text-blue-700 hover:no-underline"
+                    href={loginPageRoute}
+                  >
+                    Sign In
+                  </a>
+                </div>
+              </Form>
+            </div>
           </div>
         )}
       </Formik>
