@@ -1,13 +1,13 @@
 import { db } from "../libs/firebase";
 
-export const addQuestions = function ({
+export const addQuestions = ({
   answer,
   correctAnswer,
   point,
   question,
   type,
   testId,
-}) {
+}) => {
   return db.ref(`/questions/`).push({
     answer,
     correctAnswer,
@@ -18,7 +18,7 @@ export const addQuestions = function ({
   });
 };
 
-export const getTestQuestions = function ({ testId }) {
+export const getTestQuestions = ({ testId }) => {
   const currentTestQuestions = [];
   return new Promise((resolve) => {
     db.ref(`/questions/`)
@@ -40,7 +40,7 @@ export const getTestQuestions = function ({ testId }) {
   });
 };
 
-export const getQuestionsNoCorrectAnswers = function ({ testId }) {
+export const getQuestionsNoCorrectAnswers = ({ testId }) => {
   const currentTestQuestions = [];
   return new Promise((resolve) => {
     db.ref(`/questions/`)
@@ -60,7 +60,7 @@ export const getQuestionsNoCorrectAnswers = function ({ testId }) {
   });
 };
 
-export const getCorrectAnswers = function ({ testId }) {
+export const getCorrectAnswers = ({ testId }) => {
   const currentTestQuestions = [];
   return new Promise((resolve) => {
     db.ref(`/questions/`)
@@ -77,7 +77,7 @@ export const getCorrectAnswers = function ({ testId }) {
   });
 };
 
-export const editQuestion = function ({
+export const editQuestion = ({
   answer,
   correctAnswer,
   point,
@@ -85,8 +85,7 @@ export const editQuestion = function ({
   type,
   questionId,
   testId,
-}) {
-  console.log(questionId);
+}) => {
   return db.ref(`/questions/${questionId}`).update({
     answer,
     correctAnswer,

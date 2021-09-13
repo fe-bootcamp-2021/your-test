@@ -1,6 +1,6 @@
 import { db } from "../libs/firebase";
 
-export const addTest = function ({ testDescription, testTitle, userId }) {
+export const addTest = ({ testDescription, testTitle, userId }) => {
   return db.ref(`/tests/`).set({
     testDescription,
     testTitle,
@@ -8,7 +8,7 @@ export const addTest = function ({ testDescription, testTitle, userId }) {
   });
 };
 
-export const getUserTests = function ({ userId }) {
+export const getUserTests = ({ userId }) => {
   const currentUserTests = [];
   return new Promise((resolve) => {
     db.ref(`/tests/`)
@@ -30,7 +30,7 @@ export const getUserTests = function ({ userId }) {
   });
 };
 
-export const getCreatedTest = function ({ testId }) {
+export const getCreatedTest = ({ testId }) => {
   const currentCreatedTest = {};
   return new Promise((resolve, reject) => {
     db.ref(`/tests/${testId}`).once("value", (snapshot) => {
@@ -43,7 +43,7 @@ export const getCreatedTest = function ({ testId }) {
   });
 };
 
-export const deleteTest = function ({ testId }) {
+export const deleteTest = ({ testId }) => {
   return new Promise((resolve) => {
     resolve(db.ref(`/tests/${testId}`).remove());
   }).then(() => {

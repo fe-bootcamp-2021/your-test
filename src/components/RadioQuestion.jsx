@@ -1,5 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-
 import Button from "./Button";
 import Input from "./Input";
 
