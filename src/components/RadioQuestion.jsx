@@ -74,7 +74,9 @@ export default function RadioQuestion({ setAnswerSection, answerSection }) {
               onChange={handleCorrectAnswer}
             />
             <Input type="text" value={e} onChange={handleChange(i)} />
-            <Button buttonName="X" color="red" onClick={handleDelete(e)} />
+            {answerSection.answer.length > 1 && (
+              <Button buttonName="X" color="red" onClick={handleDelete(e)} />
+            )}
           </div>
         );
       })}
