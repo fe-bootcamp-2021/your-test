@@ -32,7 +32,6 @@ export default function QuestionForm({
 
   useEffect(() => {
     if (changeQuestion) {
-      console.log(changeQuestion);
       setAnswerSection({ ...changeQuestion });
     }
   }, [changeQuestion]);
