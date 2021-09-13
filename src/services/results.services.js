@@ -1,7 +1,6 @@
 import { db } from "../libs/firebase";
 
-export const addResults = function ({ userEmail, date, testId, results }) {
-  console.log(userEmail, date, testId, results);
+export const addResults = ({ userEmail, date, testId, results }) => {
   return db.ref(`/results/`).push({
     userEmail,
     date,
@@ -10,7 +9,7 @@ export const addResults = function ({ userEmail, date, testId, results }) {
   });
 };
 
-export const getResults = function ({ testId }) {
+export const getResults = ({ testId }) => {
   const currentTestResults = [];
   return new Promise((resolve) => {
     db.ref(`/results/`)
@@ -29,7 +28,7 @@ export const getResults = function ({ testId }) {
   });
 };
 
-export const getCurrentResults = function ({ resultId }) {
+export const getCurrentResults = ({ resultId }) => {
   const currentTestResults = [];
   return new Promise((resolve) => {
     db.ref(`/results/${resultId}`).once("value", (snapshot) => {

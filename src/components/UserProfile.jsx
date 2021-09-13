@@ -31,7 +31,6 @@ export default function UserProfile() {
     if (currentUser) {
       const currentUserUId = String(currentUser.uid);
       getUserTests({ userId: currentUserUId }).then((res) => {
-        console.log("render");
         setCurrentUserTests((pre) => ({ ...res }));
       });
     }
