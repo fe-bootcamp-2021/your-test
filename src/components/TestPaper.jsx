@@ -56,9 +56,9 @@ export default function TestPaper({ testId, testInfo }) {
           <div className="w-full flex justify-between">
             <Button
               buttonName={<PlusIcon />}
-              width="12"
               color="blue"
               style={{
+                width: "12px",
                 borderRadius: "100px",
                 height: "3rem",
                 padding: "0",

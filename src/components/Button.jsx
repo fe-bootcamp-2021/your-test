@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import classNames from "classnames";
+import { bgColor, hoverBgColor } from "../helpers/getColor";
 
 export default function Button({ buttonName, color, width = "full", ...attr }) {
   const buttonStyle = classNames(
@@ -16,12 +17,12 @@ export default function Button({ buttonName, color, width = "full", ...attr }) {
     "text-white",
     "uppercase",
     "transition",
-    `bg-${color}-500`,
+    bgColor[color] ? bgColor[color] : `bg-${color}-500`,
     "rounded",
     "shadow",
     "ripple",
     "hover:shadow-lg",
-    `hover:bg-${color}-600`,
+    hoverBgColor[color] ? hoverBgColor[color] : `hover:bg-${color}-600`,
     "focus:outline-none"
   );
   return (
