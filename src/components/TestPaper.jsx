@@ -13,6 +13,8 @@ import Popup from "./Popup";
 export default function TestPaper({ testId, testInfo }) {
   const [isQuestionForm, setIsQuestionForm] = useState(false);
   const [allQuestions, setAllQuestions] = useState([]);
+  const [isQuestionChanged, setIsQuestionChanged] = useState(false);
+  const [isQuestionAdded, setIsQuestionAdded] = useState(false);
 
   const [showCopyPopup, setShowCopyPopup] = useState({
     isPopup: false,
@@ -26,7 +28,7 @@ export default function TestPaper({ testId, testInfo }) {
       setAllQuestions(res);
     });
     setIsQuestionForm(false);
-  }, [testId]);
+  }, [testId, isQuestionChanged, isQuestionAdded]);
 
   return (
     <>
@@ -42,6 +44,7 @@ export default function TestPaper({ testId, testInfo }) {
           closeQuestionForm={setIsQuestionForm}
           testId={testId}
           setAllQuestions={setAllQuestions}
+          setIsQuestionAdded={setIsQuestionAdded}
         />
       ) : (
         <div
@@ -105,7 +108,12 @@ export default function TestPaper({ testId, testInfo }) {
           </div>
           <div className="w-full mt-10">
             {allQuestions.length > 0 && (
-              <TestPaperQuestions allQuestions={allQuestions} />
+              <TestPaperQuestions
+                allQuestions={allQuestions}
+                testId={testId}
+                setIsQuestionChanged={setIsQuestionChanged}
+                setIsQuestionAdded={setIsQuestionAdded}
+              />
             )}
           </div>
         </div>

@@ -5,14 +5,20 @@ import EditIcon from "./icons/EditIcon";
 import Input from "./Input";
 import QuestionForm from "./QuestionForm";
 
-export default function TestPaperQuestions({ allQuestions }) {
-  console.log(allQuestions);
+export default function TestPaperQuestions({
+  allQuestions,
+  testId,
+  setIsQuestionChanged,
+  setIsQuestionAdded,
+}) {
   const [isQuestionForm, setIsQuestionForm] = useState(false);
-
   return isQuestionForm ? (
     <QuestionForm
       changeQuestion={isQuestionForm}
       closeQuestionForm={setIsQuestionForm}
+      testId={testId}
+      setIsQuestionChanged={setIsQuestionChanged}
+      setIsQuestionAdded={setIsQuestionAdded}
     />
   ) : (
     allQuestions.map((obj, i) => {

@@ -45,10 +45,8 @@ export const getCreatedTest = function ({ testId }) {
 
 export const deleteTest = function ({ testId }) {
   return new Promise((resolve) => {
-    console.log(`Testy jnjec ${testId}`);
     resolve(db.ref(`/tests/${testId}`).remove());
   }).then(() => {
-    console.log("Questionne hety");
     db.ref(`/questions/`)
       .orderByChild("testId")
       .equalTo(testId)
