@@ -32,6 +32,7 @@ export const getTestQuestions = function ({ testId }) {
             point: item.val().point,
             question: item.val().question,
             type: item.val().type,
+            questionId: item.key,
           });
         });
         resolve(currentTestQuestions);
@@ -73,5 +74,25 @@ export const getCorrectAnswers = function ({ testId }) {
         });
         resolve(currentTestQuestions);
       });
+  });
+};
+
+export const editQuestion = function ({
+  answer,
+  correctAnswer,
+  point,
+  question,
+  type,
+  questionId,
+  testId,
+}) {
+  console.log(questionId);
+  return db.ref(`/questions/${questionId}`).update({
+    answer,
+    correctAnswer,
+    point,
+    question,
+    type,
+    testId,
   });
 };

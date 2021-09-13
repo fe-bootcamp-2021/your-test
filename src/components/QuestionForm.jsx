@@ -3,17 +3,23 @@ import classNames from "classnames";
 import Button from "./Button";
 import Input from "./Input";
 import RadioQuestion from "./RadioQuestion";
-import { addQuestions, getTestQuestions } from "../services/question.services";
+import {
+  addQuestions,
+  getTestQuestions,
+  editQuestion,
+} from "../services/question.services";
 import SelectQuestion from "./SelectQuestion";
 import Popup from "./Popup";
 
-const questionSection = classNames();
+// const questionSection = classNames();
 
 export default function QuestionForm({
   changeQuestion,
   closeQuestionForm,
   setAllQuestions,
   testId,
+  setIsQuestionChanged,
+  setIsQuestionAdded,
 }) {
   const [answerSection, setAnswerSection] = useState({
     question: "",
@@ -21,13 +27,15 @@ export default function QuestionForm({
     answer: [],
     correctAnswer: [],
     point: 0,
+    questionId: "",
   });
 
   useEffect(() => {
     if (changeQuestion) {
+      console.log(changeQuestion);
       setAnswerSection({ ...changeQuestion });
     }
-  }, []);
+  }, [changeQuestion]);
 
   const [showPopup, setShowPopup] = useState({
     isPopup: false,
@@ -65,7 +73,17 @@ export default function QuestionForm({
     closeQuestionForm(false);
 
     changeQuestion
-      ? console.log(answerSection)
+      ? editQuestion({
+          answer: answerSection.answer,
+          correctAnswer: answerSection.correctAnswer,
+          point: Number(answerSection.point),
+          question: answerSection.question,
+          type: answerSection.type,
+          questionId: answerSection.questionId,
+          testId,
+        }).then(() => {
+          setIsQuestionChanged((prev) => !prev);
+        })
       : addQuestions({
           answer: answerSection.answer,
           correctAnswer: answerSection.correctAnswer,
@@ -90,7 +108,7 @@ export default function QuestionForm({
           })
           .then(() => {
             closeQuestionForm(false);
-            console.log("ekela");
+            setIsQuestionAdded();
           });
   };
 

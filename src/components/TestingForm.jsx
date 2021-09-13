@@ -10,6 +10,8 @@ import { Formik, Form } from "formik";
 import { emailScheme } from "../validationSchemes/emailScheme";
 import { getCreatedTest } from "../services/test.services";
 import { getTestQuestions } from "../services/question.services";
+import { addResults } from "../services/results.services";
+import getCurrentDate from "../helpers/getCurrentDate";
 import { errorPageRoute } from "../constants/routes";
 
 import Loader from "./Loader";
@@ -22,6 +24,7 @@ export default function TestingForm() {
   const [testQuestions, setTestQuestions] = useState([]);
   const [titleDec, setTitleDec] = useState({});
   const [userEmail, setUserEmail] = useState("");
+  const [isTestCompleted, setIsTestCompleted] = useState(false);
 
   const historyHook = useHistory();
 
@@ -50,10 +53,6 @@ export default function TestingForm() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   console.log(titleDec);
-  // }, [titleDec]);
-
   const handleSubmit = () => {
     testQuestions.forEach((el) => {
       if (!el.selected || !el.selected.length) {
@@ -72,7 +71,15 @@ export default function TestingForm() {
         el.point = 0;
       }
     });
-    console.log(testQuestions);
+
+    addResults({
+      userEmail,
+      date: getCurrentDate(),
+      ...testId,
+      results: testQuestions,
+    }).then(() => {
+      setIsTestCompleted(true);
+    });
   };
 
   const handleCheck = (selected = [], { checked, value }) => {
@@ -161,64 +168,102 @@ export default function TestingForm() {
               </div>
             </div>
           ) : (
-            <div className="max-w-3xl m-auto border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4">
-              <Popup
-                message={showPopup.massage}
-                isError={showPopup.isError}
-                isPopup={showPopup.isPopup}
-                showPopup={setShowPopup}
-              />
-              <h1 className="text-4xl">
-                {Object.keys(titleDec).length > 0 ? titleDec.testTitle : "null"}
-              </h1>
-              <p className="text-lg mb-4">
-                {Object.keys(titleDec).length > 0
-                  ? titleDec.testDescription
-                  : "null"}
-              </p>
-              {testQuestions.length > 0
-                ? testQuestions.map((obj, i) => {
-                    return (
-                      <div key={i}>
-                        <hr />
-                        <p className="p-2 font-semibold">
-                          <span>{i + 1}. </span>
-                          {obj.question}
-                        </p>
-
-                        {obj.type === "text" ? (
-                          <div>
-                            <Input
-                              name={i}
-                              type={obj.type}
-                              value={obj.selected}
-                              onChange={handleChange(i)}
-                            />
-                          </div>
-                        ) : (
-                          obj.answer.map((el, index) => {
-                            return (
-                              <div key={uuid_v4()}>
-                                <label htmlFor={i} className="block ml-6">
-                                  <Input
-                                    name={i}
-                                    type={obj.type}
-                                    value={el}
-                                    id={i}
-                                    onChange={handleChange(i)}
-                                  />
-                                  {el}
-                                </label>
-                              </div>
-                            );
-                          })
-                        )}
+            <>
+              {isTestCompleted ? (
+                <div className="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
+                  <div className="absolute opacity-80 inset-0 z-0" />
+                  <div className="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-2xl bg-gray-100 border-2 border-green-100 ">
+                    <div className="">
+                      <div className="text-center p-5 flex-auto justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-16 w-16 text-green-500 flex items-center mx-auto"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        <h2 className="text-xl font-bold py-4 ">
+                          Your test is completed.
+                        </h2>
+                        <p className="text-sm text-gray-500 px-8">Thank you.</p>
                       </div>
-                    );
-                  })
-                : null}
-              <Button buttonName="Submit" color="blue" onClick={handleSubmit} />
-            </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="max-w-3xl m-auto border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4">
+                  <Popup
+                    message={showPopup.massage}
+                    isError={showPopup.isError}
+                    isPopup={showPopup.isPopup}
+                    showPopup={setShowPopup}
+                  />
+                  <h1 className="text-4xl">
+                    {Object.keys(titleDec).length > 0
+                      ? titleDec.testTitle
+                      : "null"}
+                  </h1>
+                  <p className="text-lg mb-4">
+                    {Object.keys(titleDec).length > 0
+                      ? titleDec.testDescription
+                      : "null"}
+                  </p>
+                  {testQuestions.length > 0
+                    ? testQuestions.map((obj, i) => {
+                        return (
+                          <div key={i}>
+                            <hr />
+                            <p className="p-2 font-semibold">
+                              <span>{i + 1}. </span>
+                              {obj.question}
+                            </p>
+
+                            {obj.type === "text" ? (
+                              <div>
+                                <Input
+                                  name={i}
+                                  type={obj.type}
+                                  value={obj.selected}
+                                  onChange={handleChange(i)}
+                                />
+                              </div>
+                            ) : (
+                              obj.answer.map((el, index) => {
+                                return (
+                                  <div key={uuid_v4()}>
+                                    <label htmlFor={i} className="block ml-6">
+                                      <Input
+                                        name={i}
+                                        type={obj.type}
+                                        value={el}
+                                        id={i}
+                                        onChange={handleChange(i)}
+                                      />
+                                      {el}
+                                    </label>
+                                  </div>
+                                );
+                              })
+                            )}
+                          </div>
+                        );
+                      })
+                    : null}
+                  <Button
+                    buttonName="Submit"
+                    color="blue"
+                    onClick={handleSubmit}
+                  />
+                </div>
+              )}
+            </>
           )}{" "}
         </>
       ) : (
