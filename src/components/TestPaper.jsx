@@ -58,7 +58,7 @@ export default function TestPaper({ testId, testInfo }) {
               buttonName={<PlusIcon />}
               color="blue"
               style={{
-                width: "12px",
+                width: "50px",
                 borderRadius: "100px",
                 height: "3rem",
                 padding: "0",
@@ -71,10 +71,10 @@ export default function TestPaper({ testId, testInfo }) {
               {allQuestions.length > 0 && (
                 <Button
                   buttonName={<CopyLinkIcon />}
-                  width="12"
                   color="gray"
                   style={{
                     borderRadius: "100px",
+                    width: "12px",
                     height: "3rem",
                     display: "flex",
                     justifyContent: "center",
