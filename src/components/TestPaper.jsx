@@ -7,7 +7,7 @@ import CopyLinkIcon from "./icons/CopyLinkIcon";
 import QuestionForm from "./QuestionForm";
 import TestPaperQuestions from "./TestPaperQuestions";
 import { getTestQuestions } from "../services/question.services";
-import { testsPageRoute, webPageRoute } from "../constants/routes";
+import { testsPageRoute } from "../constants/routes";
 import Popup from "./Popup";
 
 export default function TestPaper({ testId, testInfo }) {
@@ -84,7 +84,7 @@ export default function TestPaper({ testId, testInfo }) {
                   onClick={() => {
                     if (
                       navigator.clipboard.writeText(
-                        `${webPageRoute}${testsPageRoute}${testId}`
+                        `${window.location.origin}${testsPageRoute}${testId}`
                       )
                     ) {
                       setShowCopyPopup({
