@@ -244,6 +244,15 @@ export default function TestingForm() {
                                         type={obj.type}
                                         value={el}
                                         id={i}
+                                        checked={
+                                          obj.selected
+                                            ? obj.type === "checkbox"
+                                              ? obj.selected.find(
+                                                  (a) => a === el
+                                                )
+                                              : obj.selected === el
+                                            : false
+                                        }
                                         onChange={handleChange(i)}
                                       />
                                       {el}
