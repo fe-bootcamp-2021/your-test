@@ -155,7 +155,7 @@ export default function TestingForm() {
                             <div className="relative flex items-center justify-center">
                               <Button
                                 type="submit"
-                                className="mt-10 w-64 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                                className="mt-10 w-64 bg-transparent hover:bg-blue-600 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                                 buttonName="Submit"
                               />
                             </div>
