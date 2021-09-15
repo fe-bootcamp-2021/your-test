@@ -78,7 +78,7 @@ export default function LoginForm() {
                 />
                 <Button
                   type="submit"
-                  className="mb-5 w-1/2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                  className="mb-5 w-1/2 bg-transparent hover:bg-blue-600 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                   buttonName="Login"
                 />
                 <div className="w-full flex items-center justify-center">

@@ -7,7 +7,7 @@ import CopyLinkIcon from "./icons/CopyLinkIcon";
 import QuestionForm from "./QuestionForm";
 import TestPaperQuestions from "./TestPaperQuestions";
 import { getTestQuestions } from "../services/question.services";
-import { testsPageRoute, webPageRoute } from "../constants/routes";
+import { testsPageRoute } from "../constants/routes";
 import Popup from "./Popup";
 
 export default function TestPaper({ testId, testInfo }) {
@@ -70,13 +70,48 @@ export default function TestPaper({ testId, testInfo }) {
                   buttonName={<PlusIcon />}
                   color="blue"
                   style={{
-                    width: "12px",
+                    width: "50px",
                     borderRadius: "100px",
                     height: "3rem",
                     padding: "0",
                   }}
                   onClick={() => {
                     setIsQuestionForm(true);
+                  }}
+                />
+                <div className="flex">
+                  {allQuestions.length > 0 && (
+                    <Button
+                      buttonName={<CopyLinkIcon />}
+                      color="gray"
+                  style={{
+                    width: "12px",
+                    borderRadius: "100px",
+                    width: "12px",
+                    height: "3rem",
+                    padding: "0",
+                  }}
+                  onClick={() => {
+                    setIsQuestionForm(true);
+                    if (
+                      navigator.clipboard.writeText(
+                        `${window.location.origin}${testsPageRoute}${testId}`
+                      )
+                    ) {
+                      setShowCopyPopup({
+                        isPopup: true,
+                        massage: "Copied",
+                        isError: false,
+                        setTimer: 1000,
+                      });
+                    } else {
+                      setShowCopyPopup({
+                        isPopup: true,
+                        massage: "Can not copy",
+                        isError: true,
+                        setTimer: 1000,
+                      });
+                    }
                   }}
                 />
                 <div className="flex">
