@@ -18,8 +18,8 @@ export const getResults = ({ testId }) => {
       .once("value", (snapshot) => {
         snapshot.forEach((item) => {
           currentTestResults.push({
-            email: item.val().answer,
-            date: item.val().correctAnswer,
+            email: item.val().userEmail,
+            date: item.val().date,
             resultId: item.key,
           });
         });
