@@ -7,7 +7,7 @@ import CopyLinkIcon from "./icons/CopyLinkIcon";
 import QuestionForm from "./QuestionForm";
 import TestPaperQuestions from "./TestPaperQuestions";
 import { getTestQuestions } from "../services/question.services";
-import { testsPageRoute, webPageRoute } from "../constants/routes";
+import { testsPageRoute } from "../constants/routes";
 import Popup from "./Popup";
 
 export default function TestPaper({ testId, testInfo }) {
@@ -68,10 +68,11 @@ export default function TestPaper({ testId, testInfo }) {
               <div className="w-full flex justify-between">
                 <Button
                   buttonName={<PlusIcon />}
-                  color="blue"
-                  style={{
+                    color="blue"
+                    style={{
                     width: "12px",
                     borderRadius: "100px",
+                    width: "12px",
                     height: "3rem",
                     padding: "0",
                   }}
