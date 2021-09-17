@@ -68,12 +68,10 @@ export default function TestPaper({ testId, testInfo }) {
               <div className="w-full flex justify-between">
                 <Button
                   buttonName={<PlusIcon />}
-                    color="blue"
-                    style={{
-                    width: "12px",
+                  color="blue"
+                  style={{
+                    width: "50px",
                     borderRadius: "100px",
-                    width: "12px",
-                    height: "3rem",
                     padding: "0",
                   }}
                   onClick={() => {
@@ -97,7 +95,7 @@ export default function TestPaper({ testId, testInfo }) {
                       onClick={() => {
                         if (
                           navigator.clipboard.writeText(
-                            `${webPageRoute}${testsPageRoute}${testId}`
+                            `${window.location.origin}${testsPageRoute}${testId}`
                           )
                         ) {
                           setShowCopyPopup({
