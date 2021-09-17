@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import Button from "./Button";
-import Input from "./Input";
+import Results from "./Results";
 import PlusIcon from "./icons/PlusIcon";
 import CopyLinkIcon from "./icons/CopyLinkIcon";
 import QuestionForm from "./QuestionForm";
@@ -12,6 +12,7 @@ import Popup from "./Popup";
 
 export default function TestPaper({ testId, testInfo }) {
   const [isQuestionForm, setIsQuestionForm] = useState(false);
+  const [isResult, setIsResult] = useState(false);
   const [allQuestions, setAllQuestions] = useState([]);
   const [isQuestionChanged, setIsQuestionChanged] = useState(false);
   const [isQuestionAdded, setIsQuestionAdded] = useState(false);
@@ -47,75 +48,89 @@ export default function TestPaper({ testId, testInfo }) {
           setIsQuestionAdded={setIsQuestionAdded}
         />
       ) : (
-        <div
-          className="w-1/2 border-solid border-2 border-gray-200 shadow-xl flex items-center flex-col p-4"
-          style={{ minHeight: "95%" }}
-        >
-          <h1 className="text-4xl">{testInfo.testTitle}</h1>
-          <p className="text-lg">{testInfo.testDescription}</p>
-          <div className="w-full flex justify-between">
-            <Button
-              buttonName={<PlusIcon />}
-              color="blue"
-              style={{
-                width: "50px",
-                borderRadius: "100px",
-                height: "3rem",
-                padding: "0",
-              }}
-              onClick={() => {
-                setIsQuestionForm(true);
-              }}
-            />
-            <div className="flex">
-              {allQuestions.length > 0 && (
+        <div>
+          <Button
+            buttonName="Results"
+            color="blue"
+            onClick={() => {
+              setIsResult((prev) => !prev);
+            }}
+          />
+          {isResult ? (
+            <Results testId={testId} testInfo={testInfo} />
+          ) : (
+            <div
+              className="w-3xl border-solid border-2 border-gray-200 shadow-xl flex items-center flex-col p-4"
+              style={{ minHeight: "95%" }}
+            >
+              <h1 className="text-4xl">{testInfo.testTitle}</h1>
+              <p className="text-lg">{testInfo.testDescription}</p>
+              <div className="w-full flex justify-between">
                 <Button
-                  buttonName={<CopyLinkIcon />}
-                  color="gray"
-                  style={{
+                  buttonName={<PlusIcon />}
+                    color="blue"
+                    style={{
+                    width: "12px",
                     borderRadius: "100px",
                     width: "12px",
                     height: "3rem",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    color: "white",
+                    padding: "0",
                   }}
                   onClick={() => {
-                    if (
-                      navigator.clipboard.writeText(
-                        `${window.location.origin}${testsPageRoute}${testId}`
-                      )
-                    ) {
-                      setShowCopyPopup({
-                        isPopup: true,
-                        massage: "Copied",
-                        isError: false,
-                        setTimer: 1000,
-                      });
-                    } else {
-                      setShowCopyPopup({
-                        isPopup: true,
-                        massage: "Can not copy",
-                        isError: true,
-                        setTimer: 1000,
-                      });
-                    }
+                    setIsQuestionForm(true);
                   }}
                 />
-              )}
+                <div className="flex">
+                  {allQuestions.length > 0 && (
+                    <Button
+                      buttonName={<CopyLinkIcon />}
+                      width="12"
+                      color="gray"
+                      style={{
+                        borderRadius: "100px",
+                        height: "3rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        color: "white",
+                      }}
+                      onClick={() => {
+                        if (
+                          navigator.clipboard.writeText(
+                            `${webPageRoute}${testsPageRoute}${testId}`
+                          )
+                        ) {
+                          setShowCopyPopup({
+                            isPopup: true,
+                            massage: "Copied",
+                            isError: false,
+                            setTimer: 1000,
+                          });
+                        } else {
+                          setShowCopyPopup({
+                            isPopup: true,
+                            massage: "Can not copy",
+                            isError: true,
+                            setTimer: 1000,
+                          });
+                        }
+                      }}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="w-full mt-10">
+                {allQuestions.length > 0 && (
+                  <TestPaperQuestions
+                    allQuestions={allQuestions}
+                    testId={testId}
+                    setIsQuestionChanged={setIsQuestionChanged}
+                    setIsQuestionAdded={setIsQuestionAdded}
+                  />
+                )}
+              </div>
             </div>
-          </div>
-          <div className="w-full mt-10">
-            {allQuestions.length > 0 && (
-              <TestPaperQuestions
-                allQuestions={allQuestions}
-                testId={testId}
-                setIsQuestionChanged={setIsQuestionChanged}
-                setIsQuestionAdded={setIsQuestionAdded}
-              />
-            )}
-          </div>
+          )}
         </div>
       )}
     </>

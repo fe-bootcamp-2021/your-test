@@ -55,7 +55,9 @@ export default function TestPaperQuestions({
                     checked={
                       obj.type === "radio"
                         ? el === obj.correctAnswer
-                        : obj.correctAnswer.find((a) => a === el)
+                        : obj.correctAnswer
+                        ? obj.correctAnswer.find((a) => a === el)
+                        : false
                     }
                     type={obj.type}
                     value={el}

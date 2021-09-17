@@ -55,13 +55,19 @@ export default function TestingForm() {
 
   const handleSubmit = () => {
     testQuestions.forEach((el) => {
+      if (!el.answer) {
+        el.answer = null;
+      }
+      if (!el.correctAnswer) {
+        el.correctAnswer = null;
+      }
       if (!el.selected || !el.selected.length) {
         throw setShowPopup({
           isPopup: true,
           massage: "Please write all tasks",
           isError: true,
         });
-      } else if (el.type === "checkbox") {
+      } else if (el.type === "checkbox" && el.correctAnswer) {
         if (
           el.correctAnswer.sort().join(",") !== el.selected.sort().join(",")
         ) {
