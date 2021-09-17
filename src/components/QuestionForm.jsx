@@ -32,7 +32,12 @@ export default function QuestionForm({
 
   useEffect(() => {
     if (changeQuestion) {
-      setAnswerSection({ ...changeQuestion });
+      setAnswerSection({
+        ...changeQuestion,
+        answer: changeQuestion.type === "text" ? [] : changeQuestion.answer,
+        correctAnswer:
+          changeQuestion.type === "text" ? [] : changeQuestion.correctAnswer,
+      });
     }
   }, [changeQuestion]);
 
