@@ -244,7 +244,7 @@ export default function TestingForm() {
                               obj.answer.map((el, index) => {
                                 return (
                                   <div key={uuid_v4()}>
-                                    <label htmlFor={i} className="block ml-6">
+                                    <span className="block ml-6 ">
                                       <Input
                                         name={i}
                                         type={obj.type}
@@ -262,7 +262,7 @@ export default function TestingForm() {
                                         onChange={handleChange(i)}
                                       />
                                       {el}
-                                    </label>
+                                    </span>
                                   </div>
                                 );
                               })
