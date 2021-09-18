@@ -17,6 +17,15 @@ export default function Results({ testId, testInfo }) {
       type: "checkbox",
     },
     {
+      answer: [],
+      correctAnswer: [],
+      point: 0,
+      question: "vsgrd",
+      questionId: "-MjWkN5Qyow52S0inXFZ",
+      selected: "fvsdzgrtg",
+      type: "text",
+    },
+    {
       answer: ["fvsdzgrtg", "vdgrt"],
       correctAnswer: "vdgrt",
       point: 5,
@@ -26,23 +35,20 @@ export default function Results({ testId, testInfo }) {
       type: "radio",
     },
   ]);
-  const [results, setResults] = useState([
-    { email: "adasf@fs.fd", date: "2021,12,21", resultId: "fsawr4" },
-    { email: "adasf@fs.fd", date: "2021,12,21", resultId: "fsawr3" },
-    { email: "adasf@fs.fd", date: "2021,12,21", resultId: "fs57r4" },
-  ]);
+  const [results, setResults] = useState(false);
 
   useEffect(() => {
     getResults({ testId }).then((res) => {
       setResults(res);
       console.log(res);
     });
-  }, [testId, currentResults, results]);
+  }, [testId]);
 
   const handleCurrentResults = (resultId) => {
     // alert(resultId);
     getCurrentResults(resultId).then((res) => {
       setCurrentResults(res);
+      console.log(res);
     });
   };
 
