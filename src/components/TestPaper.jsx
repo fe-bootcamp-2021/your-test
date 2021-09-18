@@ -48,9 +48,9 @@ export default function TestPaper({ testId, testInfo }) {
           setIsQuestionAdded={setIsQuestionAdded}
         />
       ) : (
-        <div>
+        <div className="md:w-8/12 min-w-3xl m-auto">
           <Button
-            buttonName="Results"
+            buttonName={isResult ? "Test" : "Results"}
             color="blue"
             onClick={() => {
               setIsResult((prev) => !prev);
@@ -59,10 +59,7 @@ export default function TestPaper({ testId, testInfo }) {
           {isResult ? (
             <Results testId={testId} testInfo={testInfo} />
           ) : (
-            <div
-              className="w-3xl border-solid border-2 border-gray-200 shadow-xl flex items-center flex-col p-4"
-              style={{ minHeight: "95%" }}
-            >
+            <div className="my-3 min-h-screen border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4">
               <h1 className="text-4xl">{testInfo.testTitle}</h1>
               <p className="text-lg">{testInfo.testDescription}</p>
               <div className="w-full flex justify-between">
