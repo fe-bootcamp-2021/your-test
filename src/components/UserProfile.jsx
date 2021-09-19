@@ -43,65 +43,77 @@ export default function UserProfile() {
       style={{ minHeight: "92vh" }}
     >
       {messagePopup && <Popup {...messagePopup} />}
-      <div className=" border-solid border-2 border-gray-100 w-72 shadow-xl">
-        <Button buttonName="Create Test" color="green" onClick={handleClick} />
-        {Object.keys(currentUserTests).length > 0
-          ? Object.values(currentUserTests).map((elem, i) => (
-              <div className="relative flex items-center" key={i}>
-                <Button
-                  buttonName={elem[1].testTitle}
-                  color="blue"
-                  key={elem[0]}
-                  // width="10/12"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    Promise.resolve(true)
-                      .then(() => {
-                        setTestPaperData((prev) => ({
-                          ...prev,
-                          testId: elem[0],
-                          testInfo: elem[1],
-                        }));
 
-                        return true;
-                      })
-                      .then(() => {
-                        setIsTestPaper(true);
-                      });
-                  }}
-                />
-
-                <DeleteIcon
-                  onClick={() => {
-                    deleteTest({ testId: elem[0] })
-                      .then(() => {
-                        setIsRemoveSuccess((prev) => !prev);
-                      })
-                      .then(() => {
-                        setIsTestPaper(false);
-                      });
-                  }}
-                />
-              </div>
-            ))
-          : null}
-      </div>
       <div className="min-h-full w-full border-solid border-black flex items-center justify-center">
-        {isTestPopup && (
+        {isTestPopup ? (
           <TestPopup
             getTestPopup={setIsTestPopup}
             setMessagePopup={setMessagePopup}
             setIsAddSuccess={setIsAddSuccess}
           />
-        )}
-        {isTestPaper &&
+        ) : isTestPaper ? (
           Object.keys(testPaperData).length > 0 &&
           !isTestPopup && (
-            <TestPaper
-              testId={testPaperData.testId}
-              testInfo={testPaperData.testInfo}
+            <div className="md:w-8/12 min-w-3xl m-auto">
+              <Button
+                buttonName="Tests List"
+                color="green"
+                onClick={() => setIsTestPaper(false)}
+              />
+              <TestPaper
+                testId={testPaperData.testId}
+                testInfo={testPaperData.testInfo}
+              />
+            </div>
+          )
+        ) : (
+          <div className="md:w-8/12 min-w-3xl m-auto">
+            <Button
+              buttonName="Create Test"
+              color="green"
+              onClick={handleClick}
             />
-          )}
+            {Object.keys(currentUserTests).length > 0
+              ? Object.values(currentUserTests).map((elem, i) => (
+                  <div
+                    className="relative flex items-center cursor-pointer border-2 border-gray-200 p-2 my-3 justify-between"
+                    key={elem[0]}
+                    role="presentation"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      Promise.resolve(true)
+                        .then(() => {
+                          setTestPaperData((prev) => ({
+                            ...prev,
+                            testId: elem[0],
+                            testInfo: elem[1],
+                          }));
+
+                          return true;
+                        })
+                        .then(() => {
+                          setIsTestPaper(true);
+                        });
+                    }}
+                  >
+                    <span>{elem[1].testTitle}</span>
+
+                    <DeleteIcon
+                      onClick={() => {
+                        deleteTest({ testId: elem[0] })
+                          .then(() => {
+                            setIsRemoveSuccess((prev) => !prev);
+                          })
+                          .then(() => {
+                            setIsTestPaper(false);
+                          });
+                      }}
+                    />
+                  </div>
+                ))
+              : null}
+          </div>
+        )}
       </div>
     </div>
   );
