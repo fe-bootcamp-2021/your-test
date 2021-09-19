@@ -57,7 +57,7 @@ export default function Results({ testId, testInfo }) {
   }
   return (
     <div
-      className="w-96 m-auto border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4"
+      className="my-3 min-h-screen border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4"
       style={{ minHeight: "95%" }}
     >
       <h1 className="text-4xl">{testInfo.testTitle}</h1>
@@ -122,7 +122,7 @@ export default function Results({ testId, testInfo }) {
         results.map((e) => {
           return (
             <div
-              className="w-full cursor-pointer border-2 border-gray-200 p-2 m-2 flex justify-between"
+              className="cursor-pointer border-2 border-gray-200 p-2 m-2 flex justify-between"
               key={e.resultId}
               onClick={() => {
                 handleCurrentResults(e.resultId);

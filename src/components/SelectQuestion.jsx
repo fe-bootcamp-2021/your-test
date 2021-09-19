@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import Button from "./Button";
 import Input from "./Input";
+import DeleteIcon from "./icons/DeleteIcon";
 
 export default function SelectQuestion({ setAnswerSection, answerSection }) {
   useEffect(() => {
@@ -79,7 +80,10 @@ export default function SelectQuestion({ setAnswerSection, answerSection }) {
     <div className="mt-5 mb-5">
       {answerSection.answer.map((e, i) => {
         return (
-          <div key={Number(i)}>
+          <div
+            key={Number(i)}
+            className="relative h-12 flex justify-start items-center"
+          >
             <Input
               name="asdd"
               value={e}
@@ -91,9 +95,14 @@ export default function SelectQuestion({ setAnswerSection, answerSection }) {
               }
               onChange={handleCorrectAnswer}
             />
-            <Input type="text" value={e} onChange={handleChange(i)} />
+            <Input
+              type="text"
+              value={e}
+              onChange={handleChange(i)}
+              style={{ width: "100%" }}
+            />
             {answerSection.answer.length > 1 && (
-              <Button buttonName="X" color="red" onClick={handleDelete(e)} />
+              <DeleteIcon onClick={handleDelete(e)} />
             )}
           </div>
         );

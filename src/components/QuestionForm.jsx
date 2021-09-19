@@ -135,7 +135,11 @@ export default function QuestionForm({
               answerSection={answerSection}
             />
             <span>Point</span>
-            <select value={answerSection.point} onChange={handlePoint}>
+            <select
+              value={answerSection.point}
+              onChange={handlePoint}
+              className="bg-gray-100 border border-gray-300 p-2 my-3 outline-none shadow-lg"
+            >
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -157,7 +161,11 @@ export default function QuestionForm({
               answerSection={answerSection}
             />
             <span>Point</span>
-            <select value={answerSection.point} onChange={handlePoint}>
+            <select
+              value={answerSection.point}
+              onChange={handlePoint}
+              className="bg-gray-100 border border-gray-300 p-2 my-3 outline-none shadow-lg"
+            >
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -177,7 +185,7 @@ export default function QuestionForm({
   };
 
   return (
-    <div className="absolute top-1/3 w-1/2 flex flex-col justify-center items-center">
+    <div className="absolute top-64 right-1 z-10 w-screen flex flex-col justify-center items-center">
       <Popup
         message={showPopup.massage}
         isError={showPopup.isError}
@@ -185,7 +193,7 @@ export default function QuestionForm({
         showPopup={setShowPopup}
       />
       <div className="w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
-        Create question
+        {changeQuestion ? "Edit Question" : "Create question"}
       </div>
       <div className="w-1/2 editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl bg-gray-200">
         <Input
@@ -200,7 +208,11 @@ export default function QuestionForm({
           type="text"
         />
 
-        <select value={answerSection.type} onChange={handleSelect}>
+        <select
+          value={answerSection.type}
+          onChange={handleSelect}
+          className="bg-gray-100 border border-gray-300 p-2 my-3 outline-none shadow-lg"
+        >
           <option value="text">Text</option>
           <option value="radio">One of the list</option>
           <option value="checkbox">Several from the list</option>
@@ -208,7 +220,7 @@ export default function QuestionForm({
 
         {questionType(answerSection.type)}
 
-        <div className="buttons flex">
+        <div className="buttons flex mt-2">
           <Button
             buttonName="Cancel"
             color="red"

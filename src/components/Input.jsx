@@ -6,7 +6,7 @@ const style = classNames(
   "border",
   "border-gray-300",
   "p-2",
-  "mb-4",
+  "my-3",
   "outline-none",
   "shadow-lg"
 );
