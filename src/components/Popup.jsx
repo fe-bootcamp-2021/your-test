@@ -17,8 +17,8 @@ export default function Popup({
 
   const popupStyle = classNames({
     "flex flex-col p-8 shadow-md hover:shodow-lg rounded-2xl fixed top-20 right-3": true,
-    "bg-green-400": !isError,
-    "bg-red-400": isError,
+    "bg-green-600": !isError,
+    "bg-red-600": isError,
   });
 
   useEffect(() => {
@@ -53,7 +53,9 @@ export default function Popup({
               </path>
             </svg>
             <div className="flex flex-col ml-3">
-              <div className="font-medium leading-none">{message}</div>
+              <div className="font-medium leading-none text-gray-50">
+                {message}
+              </div>
             </div>
           </div>
         </div>

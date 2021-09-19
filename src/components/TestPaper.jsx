@@ -73,7 +73,7 @@ export default function TestPaper({ testId, testInfo }) {
                   <Button
                     buttonName={<CopyLinkIcon />}
                     width="12"
-                    color="gray"
+                    color="green"
                     style={{
                       borderRadius: "100px",
                       height: "3rem",
@@ -107,7 +107,7 @@ export default function TestPaper({ testId, testInfo }) {
                 )}
               </div>
             </div>
-            <div className="w-full mt-10">
+            <div className="mt-10">
               {isQuestionForm ? (
                 <QuestionForm
                   closeQuestionForm={setIsQuestionForm}
