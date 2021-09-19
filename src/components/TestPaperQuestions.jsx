@@ -44,6 +44,7 @@ export default function TestPaperQuestions({
               placeholder="Enter text"
               type={obj.type}
               value={obj.selected}
+              style={{ width: "100%" }}
             />
           ) : (
             obj.answer.map((el) => {
