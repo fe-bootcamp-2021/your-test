@@ -40,15 +40,12 @@ export default function Results({ testId, testInfo }) {
   useEffect(() => {
     getResults({ testId }).then((res) => {
       setResults(res);
-      console.log(res);
     });
   }, [testId]);
 
   const handleCurrentResults = (resultId) => {
-    // alert(resultId);
     getCurrentResults(resultId).then((res) => {
       setCurrentResults(res);
-      console.log(res);
     });
   };
 
