@@ -17,12 +17,12 @@ export default function Button({ buttonName, color, width = "full", ...attr }) {
     "text-white",
     "uppercase",
     "transition",
-    bgColor[color] ? bgColor[color] : `bg-${color}-500`,
+    bgColor[color] ? bgColor[color] : `bg-${color}-600`,
     "rounded",
     "shadow",
     "ripple",
     "hover:shadow-lg",
-    hoverBgColor[color] ? hoverBgColor[color] : `hover:bg-${color}-600`,
+    hoverBgColor[color] ? hoverBgColor[color] : `hover:bg-${color}-800`,
     "focus:outline-none"
   );
   return (

@@ -52,11 +52,11 @@ export default function TestPopup({
 
   return (
     <>
-      <div className="fixed w-screen flex flex-col justify-center items-center">
-        <div className="w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
+      <div className="absolute w-screen flex flex-col justify-center items-center">
+        <div className="md:w-1/2 w-11/12 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
           Test Info
         </div>
-        <div className="w-1/2 editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl bg-gray-200">
+        <div className="md:w-1/2 w-11/12 editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl bg-gray-200">
           <input
             className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
             spellCheck="false"

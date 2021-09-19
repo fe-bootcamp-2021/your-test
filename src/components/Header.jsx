@@ -5,7 +5,7 @@ import { homePageRoute } from "../constants/routes";
 export default function Header({ children }) {
   return (
     <header
-      className="bg-indigo-200 py-2 md:py-4 flex"
+      className="bg-gray-300 py-2 md:py-4 flex"
       style={{ minHeight: "8vh" }}
     >
       <div className="container px-4 mx-auto flex items-center justify-between">

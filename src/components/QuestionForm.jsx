@@ -185,17 +185,17 @@ export default function QuestionForm({
   };
 
   return (
-    <div className="absolute top-64 right-1 z-10 w-screen flex flex-col justify-center items-center">
+    <div className="absolute right-1 w-full flex flex-col justify-center items-center">
       <Popup
         message={showPopup.massage}
         isError={showPopup.isError}
         isPopup={showPopup.isPopup}
         showPopup={setShowPopup}
       />
-      <div className="w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
+      <div className="w-11/12 md:w-1/2 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
         {changeQuestion ? "Edit Question" : "Create question"}
       </div>
-      <div className="w-1/2 editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl bg-gray-200">
+      <div className="w-11/12 md:w-1/2 editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl bg-gray-200">
         <Input
           placeholder="Question"
           onChange={({ target }) => {

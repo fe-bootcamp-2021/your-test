@@ -54,7 +54,7 @@ export default function UserProfile() {
         ) : isTestPaper ? (
           Object.keys(testPaperData).length > 0 &&
           !isTestPopup && (
-            <div className="md:w-8/12 min-w-3xl m-auto">
+            <div className="md:w-8/12 w-full p-2 m-auto">
               <Button
                 buttonName="Tests List"
                 color="green"
@@ -67,7 +67,7 @@ export default function UserProfile() {
             </div>
           )
         ) : (
-          <div className="md:w-8/12 min-w-3xl m-auto">
+          <div className="md:w-8/12 w-full p-2 m-auto">
             <Button
               buttonName="Create Test"
               color="green"
