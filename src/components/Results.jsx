@@ -1,7 +1,11 @@
 import { useState, useEffect, createRef } from "react";
-
-import Pdf from "react-to-pdf";
-import { getCurrentResults, getResults } from "../services/results.services";
+import Popup from "./Popup";
+// import Pdf from "react-to-pdf";
+import {
+  getCurrentResults,
+  getResults,
+  editCurrentResults,
+} from "../services/results.services";
 import Loader from "./Loader";
 import Input from "./Input";
 import Button from "./Button";
@@ -9,37 +13,15 @@ import Button from "./Button";
 const ref = createRef();
 
 export default function Results({ testId, testInfo }) {
-  const [currentResults, setCurrentResults] = useState([
-    {
-      answer: ["fvsdzgrtg", "vdgrt"],
-      correctAnswer: ["vdgrt"],
-      point: 0,
-      question: "vsgrd",
-      questionId: "-MjWkN5Qyow52S0inXFZ",
-      selected: ["fvsdzgrtg"],
-      type: "checkbox",
-    },
-    {
-      answer: [],
-      correctAnswer: [],
-      point: 0,
-      question: "vsgrd",
-      questionId: "-MjWkN5Qyow52S0inXFZ",
-      selected: "fvsdzgrtg",
-      type: "text",
-    },
-    {
-      answer: ["fvsdzgrtg", "vdgrt"],
-      correctAnswer: "vdgrt",
-      point: 5,
-      question: "vsgrd",
-      questionId: "-MjWkN5Qyow52S0inXFZ",
-      selected: "vdgrt",
-      type: "radio",
-    },
-  ]);
+  const [currentResults, setCurrentResults] = useState(false);
   const [results, setResults] = useState(false);
   const [currentUser, setCurrentUser] = useState(false);
+  const [showSavePopup, setShowSavePopup] = useState({
+    isPopup: false,
+    massage: "",
+    isError: false,
+    setTimer: 1000,
+  });
 
   useEffect(() => {
     getResults({ testId }).then((res) => {
@@ -48,10 +30,16 @@ export default function Results({ testId, testInfo }) {
   }, [testId]);
 
   const handleCurrentResults = (e) => {
-    getCurrentResults(e.resultId).then((res) => {
+    getCurrentResults({ resultId: e.resultId }).then((res) => {
       setCurrentUser(e);
       setCurrentResults(res);
     });
+  };
+
+  const handleChangePoint = (i) => (e) => {
+    const newArr = [...currentResults];
+    newArr[1][i].point = e.target.value;
+    setCurrentResults(newArr);
   };
 
   if (!results) {
@@ -61,6 +49,13 @@ export default function Results({ testId, testInfo }) {
     <>
       {currentResults ? (
         <>
+          <Popup
+            message={showSavePopup.massage}
+            isError={showSavePopup.isError}
+            isPopup={showSavePopup.isPopup}
+            showPopup={setShowSavePopup}
+            setTimer={showSavePopup.setTimer}
+          />
           <Button
             buttonName="Back"
             color="red"
@@ -77,30 +72,51 @@ export default function Results({ testId, testInfo }) {
             <p className="text-lg">{testInfo.testDescription}</p>
             <p className="text-lg">{currentUser.email}</p>
 
-            {currentResults.map((obj, i) => {
+            {currentResults[1].map((obj, i) => {
               return (
-                <div>
+                <div key={`main${i}`}>
                   <hr />
                   <div className="p-2 flex justify-between">
                     <p className="font-semibold">
                       <span>{i + 1}. </span>
                       {obj.question}
                     </p>
-                    {obj.point}
+                    <select
+                      value={obj.point}
+                      onChange={handleChangePoint(i)}
+                      className="bg-gray-100 border border-gray-300 p-1 outline-none shadow-lg"
+                    >
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                    </select>
                   </div>
-
                   {obj.type === "text" ? (
-                    <Input
-                      name={i}
-                      disabled
-                      placeholder="Enter text"
-                      type={obj.type}
-                      value={obj.selected}
-                    />
+                    <div className="flex justify-between">
+                      <Input
+                        name={i}
+                        disabled
+                        placeholder="Enter text"
+                        type={obj.type}
+                        value={obj.selected}
+                      />
+                    </div>
                   ) : (
-                    obj.answer.map((el) => {
+                    obj.answer.map((el, index) => {
                       return (
-                        <label htmlFor={i} className="block ml-6">
+                        <label
+                          key={`label${index}`}
+                          htmlFor={i}
+                          className="block ml-6"
+                        >
                           <Input
                             disabled
                             name={i}
@@ -123,7 +139,33 @@ export default function Results({ testId, testInfo }) {
               );
             })}
           </div>
-          <Pdf
+          <div className="flex ">
+            <Button
+              buttonName="save"
+              color="blue"
+              onClick={() => {
+                editCurrentResults({
+                  resultId: currentUser.resultId,
+                  newResults: currentResults[1],
+                }).then(() => {
+                  setShowSavePopup({
+                    isPopup: true,
+                    massage: "Saved",
+                    isError: false,
+                    setTimer: 1000,
+                  });
+                });
+              }}
+            />
+            <Button
+              buttonName="Sent results"
+              color="green"
+              onClick={() => {
+                // console.log("ste mail kuxxarki");
+              }}
+            />
+          </div>
+          {/* <Pdf
             targetRef={ref}
             filename={`${testInfo.testTitle}-results.pdf`}
             x={1}
@@ -133,7 +175,7 @@ export default function Results({ testId, testInfo }) {
             {({ toPdf }) => (
               <Button color="green" buttonName="Generate Pdf" onClick={toPdf} />
             )}
-          </Pdf>
+          </Pdf> */}
         </>
       ) : (
         <div

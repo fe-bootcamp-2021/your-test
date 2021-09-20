@@ -33,9 +33,15 @@ export const getCurrentResults = ({ resultId }) => {
   return new Promise((resolve) => {
     db.ref(`/results/${resultId}`).once("value", (snapshot) => {
       snapshot.forEach((item) => {
-        currentTestResults.push(item.val().results);
+        currentTestResults.push(item.val());
       });
       resolve(currentTestResults);
     });
+  });
+};
+
+export const editCurrentResults = ({ resultId, newResults }) => {
+  return db.ref(`/results/${resultId}/results`).update({
+    ...newResults,
   });
 };
