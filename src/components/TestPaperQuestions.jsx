@@ -4,6 +4,8 @@ import { useState } from "react";
 import EditIcon from "./icons/EditIcon";
 import Input from "./Input";
 import QuestionForm from "./QuestionForm";
+import DeleteIcon from "./icons/DeleteIcon";
+import { deleteQuestion } from "../services/question.services";
 
 export default function TestPaperQuestions({
   allQuestions,
@@ -30,11 +32,22 @@ export default function TestPaperQuestions({
               <span>{i + 1}. </span>
               {obj.question}
             </p>
-            <EditIcon
-              onClick={() => {
-                setIsQuestionForm(obj);
-              }}
-            />
+            <div className="flex">
+              <EditIcon
+                onClick={() => {
+                  setIsQuestionForm(obj);
+                }}
+              />
+              <div className="relative">
+                <DeleteIcon
+                  onClick={() => {
+                    deleteQuestion(obj.questionId).then(() => {
+                      setIsQuestionChanged((prev) => !prev);
+                    });
+                  }}
+                />
+              </div>
+            </div>
           </div>
 
           {obj.type === "text" ? (

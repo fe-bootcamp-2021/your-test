@@ -95,3 +95,7 @@ export const editQuestion = ({
     testId,
   });
 };
+
+export const deleteQuestion = (questionId) => {
+  return db.ref(`/questions/${questionId}`).remove();
+};
