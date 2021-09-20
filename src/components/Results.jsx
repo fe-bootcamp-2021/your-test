@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createRef } from "react";
 
+import Pdf from "react-to-pdf";
 import { getCurrentResults, getResults } from "../services/results.services";
 import Loader from "./Loader";
 import Input from "./Input";
 import Button from "./Button";
+
+const ref = createRef();
 
 export default function Results({ testId, testInfo }) {
   const [currentResults, setCurrentResults] = useState([
@@ -36,6 +39,7 @@ export default function Results({ testId, testInfo }) {
     },
   ]);
   const [results, setResults] = useState(false);
+  const [currentUser, setCurrentUser] = useState(false);
 
   useEffect(() => {
     getResults({ testId }).then((res) => {
@@ -43,8 +47,9 @@ export default function Results({ testId, testInfo }) {
     });
   }, [testId]);
 
-  const handleCurrentResults = (resultId) => {
-    getCurrentResults(resultId).then((res) => {
+  const handleCurrentResults = (e) => {
+    getCurrentResults(e.resultId).then((res) => {
+      setCurrentUser(e);
       setCurrentResults(res);
     });
   };
@@ -53,15 +58,9 @@ export default function Results({ testId, testInfo }) {
     return <Loader />;
   }
   return (
-    <div
-      className="my-3 min-h-screen border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4"
-      style={{ minHeight: "95%" }}
-    >
-      <h1 className="text-4xl">{testInfo.testTitle}</h1>
-      <p className="text-lg">{testInfo.testDescription}</p>
-
+    <>
       {currentResults ? (
-        <div>
+        <>
           <Button
             buttonName="Back"
             color="red"
@@ -69,69 +68,97 @@ export default function Results({ testId, testInfo }) {
               setCurrentResults(false);
             }}
           />
-          {currentResults.map((obj, i) => {
-            return (
-              <div>
-                <hr />
-                <div className="p-2 flex justify-between">
-                  <p className="font-semibold">
-                    <span>{i + 1}. </span>
-                    {obj.question}
-                  </p>
-                  {obj.point}
-                </div>
+          <div
+            className="my-3 min-h-screen border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4"
+            style={{ minHeight: "95%" }}
+            ref={ref}
+          >
+            <h1 className="text-4xl">{testInfo.testTitle}</h1>
+            <p className="text-lg">{testInfo.testDescription}</p>
+            <p className="text-lg">{currentUser.email}</p>
 
-                {obj.type === "text" ? (
-                  <Input
-                    name={i}
-                    disabled
-                    placeholder="Enter text"
-                    type={obj.type}
-                    value={obj.selected}
-                  />
-                ) : (
-                  obj.answer.map((el) => {
-                    return (
-                      <label htmlFor={i} className="block ml-6">
-                        <Input
-                          disabled
-                          name={i}
-                          checked={
-                            obj.type === "radio"
-                              ? el === obj.correctAnswer
-                              : obj.correctAnswer
-                              ? obj.correctAnswer.find((a) => a === el)
-                              : false
-                          }
-                          type={obj.type}
-                          value={el}
-                        />
-                        {el}
-                      </label>
-                    );
-                  })
-                )}
+            {currentResults.map((obj, i) => {
+              return (
+                <div>
+                  <hr />
+                  <div className="p-2 flex justify-between">
+                    <p className="font-semibold">
+                      <span>{i + 1}. </span>
+                      {obj.question}
+                    </p>
+                    {obj.point}
+                  </div>
+
+                  {obj.type === "text" ? (
+                    <Input
+                      name={i}
+                      disabled
+                      placeholder="Enter text"
+                      type={obj.type}
+                      value={obj.selected}
+                    />
+                  ) : (
+                    obj.answer.map((el) => {
+                      return (
+                        <label htmlFor={i} className="block ml-6">
+                          <Input
+                            disabled
+                            name={i}
+                            checked={
+                              obj.type === "radio"
+                                ? el === obj.correctAnswer
+                                : obj.correctAnswer
+                                ? obj.correctAnswer.find((a) => a === el)
+                                : false
+                            }
+                            type={obj.type}
+                            value={el}
+                          />
+                          {el}
+                        </label>
+                      );
+                    })
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <Pdf
+            targetRef={ref}
+            filename={`${testInfo.testTitle}-results.pdf`}
+            x={1}
+            y={1}
+            scale={1}
+          >
+            {({ toPdf }) => (
+              <Button color="green" buttonName="Generate Pdf" onClick={toPdf} />
+            )}
+          </Pdf>
+        </>
+      ) : (
+        <div
+          className="my-3 min-h-screen border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4"
+          style={{ minHeight: "95%" }}
+          ref={ref}
+        >
+          <h1 className="text-4xl">{testInfo.testTitle}</h1>
+          {results.map((e) => {
+            return (
+              <div
+                className="cursor-pointer border-2 border-gray-200 p-2 m-2 flex justify-between"
+                key={e.resultId}
+                onClick={() => {
+                  handleCurrentResults(e);
+                }}
+                role="presentation"
+              >
+                <span>{e.email}</span>
+                <span>{e.date}</span>
               </div>
             );
           })}
         </div>
-      ) : (
-        results.map((e) => {
-          return (
-            <div
-              className="cursor-pointer border-2 border-gray-200 p-2 m-2 flex justify-between"
-              key={e.resultId}
-              onClick={() => {
-                handleCurrentResults(e.resultId);
-              }}
-              role="presentation"
-            >
-              <span>{e.email}</span>
-              <span>{e.date}</span>
-            </div>
-          );
-        })
       )}
-    </div>
+    </>
   );
 }
