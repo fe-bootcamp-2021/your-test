@@ -62,11 +62,11 @@ export default function RegistrationForm() {
         message={showPopup.massage}
         isError={showPopup.isError}
         isPopup={showPopup.isPopup}
+        showPopup={setShowPopup}
       />
       <Formik
         initialValues={{
           firstName: "",
-          lastName: "",
           email: "",
           password: "",
           confirmPassword: "",

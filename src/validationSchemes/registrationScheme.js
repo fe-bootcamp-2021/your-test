@@ -6,10 +6,6 @@ export const registrationScheme = Yup.object({
     .max(40, "Too long name")
     .required("Please enter your first name"),
 
-  lastName: Yup.string()
-    .max(40, "Too long last name")
-    .required("Please enter your last name"),
-
   email: Yup.string()
     .email("Enter valid email")
     .required("Please enter your email"),
