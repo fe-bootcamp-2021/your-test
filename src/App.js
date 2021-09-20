@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import UserPage from "./pages/UserPage";
-import ResultsPage from "./pages/ResultsPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
@@ -56,9 +55,6 @@ function AppWrapper() {
         <Switch>
           <Route exact path={userPageRoute}>
             <UserPage />
-          </Route>
-          <Route exact path={resultsPageRoute}>
-            <ResultsPage />
           </Route>
           <Route exact path={solveTestPageRoute}>
             <TestingForm />
