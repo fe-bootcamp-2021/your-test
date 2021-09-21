@@ -15,10 +15,7 @@ export default function Header({ children }) {
           </a>
         </div>
 
-        <div
-          className=" md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0"
-          id="navbar-collapse"
-        >
+        <div className="flex" id="navbar-collapse">
           {children}
         </div>
       </div>
