@@ -41,9 +41,9 @@ export default function TestPaper({ testId, testInfo }) {
         setTimer={showCopyPopup.setTimer}
       />
 
-      <div className="m-auto">
+      <div className="m-auto h-screen">
         <Button
-          buttonName={isResult ? "Test" : "Results"}
+          buttonName={isResult ? "Bact to Test" : "Results"}
           color="blue"
           onClick={() => {
             setIsResult((prev) => !prev);
@@ -52,7 +52,7 @@ export default function TestPaper({ testId, testInfo }) {
         {isResult ? (
           <Results testId={testId} testInfo={testInfo} />
         ) : (
-          <div className="my-3 min-h-screen border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4">
+          <div className="my-3 h-full border-solid border-2 border-gray-200 shadow-xl flex flex-col p-4">
             <h1 className="text-4xl">{testInfo.testTitle}</h1>
             <p className="text-lg">{testInfo.testDescription}</p>
             <div className="w-full flex justify-between">
@@ -115,15 +115,20 @@ export default function TestPaper({ testId, testInfo }) {
                   setAllQuestions={setAllQuestions}
                   setIsQuestionAdded={setIsQuestionAdded}
                 />
+              ) : allQuestions.length ? (
+                <TestPaperQuestions
+                  allQuestions={allQuestions}
+                  testId={testId}
+                  setIsQuestionChanged={setIsQuestionChanged}
+                  setIsQuestionAdded={setIsQuestionAdded}
+                />
               ) : (
-                allQuestions.length > 0 && (
-                  <TestPaperQuestions
-                    allQuestions={allQuestions}
-                    testId={testId}
-                    setIsQuestionChanged={setIsQuestionChanged}
-                    setIsQuestionAdded={setIsQuestionAdded}
-                  />
-                )
+                <div className="m-2 text-center">
+                  <p className="m-2">
+                    You do not have a question yet, To create a question
+                  </p>
+                  <p className="m-2">Click on top plus icon</p>
+                </div>
               )}
             </div>
           </div>

@@ -90,7 +90,7 @@ export default function SelectQuestion({ setAnswerSection, answerSection }) {
               type="checkbox"
               checked={
                 answerSection.correctAnswer
-                  ? answerSection.correctAnswer.find((a) => a === e)
+                  ? answerSection.correctAnswer.some((a) => a === e)
                   : false
               }
               onChange={handleCorrectAnswer}

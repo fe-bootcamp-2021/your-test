@@ -184,21 +184,27 @@ export default function Results({ testId, testInfo }) {
           ref={ref}
         >
           <h1 className="text-4xl">{testInfo.testTitle}</h1>
-          {results.map((e) => {
-            return (
-              <div
-                className="cursor-pointer border-2 border-gray-200 p-2 m-2 flex justify-between"
-                key={e.resultId}
-                onClick={() => {
-                  handleCurrentResults(e);
-                }}
-                role="presentation"
-              >
-                <span>{e.email}</span>
-                <span>{e.date}</span>
-              </div>
-            );
-          })}
+          {results.length ? (
+            results.map((e) => {
+              return (
+                <div
+                  className="cursor-pointer border-2 border-gray-200 p-2 m-2 flex justify-between"
+                  key={e.resultId}
+                  onClick={() => {
+                    handleCurrentResults(e);
+                  }}
+                  role="presentation"
+                >
+                  <span>{e.email}</span>
+                  <span>{e.date}</span>
+                </div>
+              );
+            })
+          ) : (
+            <div className="m-2 mt-4 text-center">
+              <p className="m-2">No one has passed this test</p>
+            </div>
+          )}
         </div>
       )}
     </>

@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 export default function TestPopup({
   getTestPopup,
-  setMessagePopup,
+  setShowPopup,
   setIsAddSuccess,
 }) {
   const [title, setTitle] = useState("");
@@ -33,10 +33,6 @@ export default function TestPopup({
           )
           .then(() => {
             getTestPopup((prev) => !prev);
-            setMessagePopup({
-              message: "Created successfully",
-              isError: false,
-            });
           })
           .then(() => {
             setIsAddSuccess((prev) => !prev);
@@ -45,16 +41,20 @@ export default function TestPopup({
 
       return true;
     }
-    setMessagePopup({ message: "Title field is empty", isError: true });
+    setShowPopup({
+      isPopup: true,
+      massage: "Title field is empty",
+      isError: true,
+    });
 
     return false;
   }
 
   return (
     <>
-      <div className="absolute w-screen flex flex-col justify-center items-center">
+      <div className="w-screen flex flex-col justify-center items-center">
         <div className="md:w-1/2 w-11/12 heading text-center font-bold text-2xl m-5 text-gray-800 flex justify-center items-center ">
-          Test Info
+          Create test
         </div>
         <div className="md:w-1/2 w-11/12 editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl bg-gray-200">
           <input

@@ -21,7 +21,11 @@ export default function UserProfile() {
   const [testPaperData, setTestPaperData] = useState({});
 
   const [currentUserTests, setCurrentUserTests] = useState({});
-  const [messagePopup, setMessagePopup] = useState();
+  const [showPopup, setShowPopup] = useState({
+    isPopup: false,
+    massage: "",
+    isError: false,
+  });
 
   const handleClick = () => {
     setIsTestPopup((prev) => !prev);
@@ -40,15 +44,20 @@ export default function UserProfile() {
   return (
     <div
       className="flex justify-between max-w-full"
-      style={{ minHeight: "92vh" }}
+      // style={{ minHeight: "70vh" }}
     >
-      {messagePopup && <Popup {...messagePopup} />}
+      <Popup
+        message={showPopup.massage}
+        isError={showPopup.isError}
+        isPopup={showPopup.isPopup}
+        showPopup={setShowPopup}
+      />
 
       <div className="min-h-full w-full border-solid border-black flex items-center justify-center">
         {isTestPopup ? (
           <TestPopup
             getTestPopup={setIsTestPopup}
-            setMessagePopup={setMessagePopup}
+            setShowPopup={setShowPopup}
             setIsAddSuccess={setIsAddSuccess}
           />
         ) : isTestPaper ? (
@@ -56,7 +65,7 @@ export default function UserProfile() {
           !isTestPopup && (
             <div className="md:w-8/12 w-full p-2 m-auto">
               <Button
-                buttonName="Tests List"
+                buttonName="My tests"
                 color="green"
                 onClick={() => setIsTestPaper(false)}
               />
@@ -68,50 +77,60 @@ export default function UserProfile() {
           )
         ) : (
           <div className="md:w-8/12 w-full p-2 m-auto">
+            <h1 className="m-2 text-center font-bold text-2xl text-gray-600">
+              My-Tests
+            </h1>
             <Button
               buttonName="Create Test"
               color="green"
               onClick={handleClick}
             />
-            {Object.keys(currentUserTests).length > 0
-              ? Object.values(currentUserTests).map((elem, i) => (
-                  <div
-                    className="relative flex items-center cursor-pointer border-2 border-gray-200 p-2 my-3 justify-between"
-                    key={elem[0]}
-                    role="presentation"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      Promise.resolve(true)
-                        .then(() => {
-                          setTestPaperData((prev) => ({
-                            ...prev,
-                            testId: elem[0],
-                            testInfo: elem[1],
-                          }));
+            {Object.keys(currentUserTests).length > 0 ? (
+              Object.values(currentUserTests).map((elem, i) => (
+                <div
+                  className="relative flex items-center cursor-pointer border-2 border-gray-200 p-2 my-3 justify-between"
+                  key={elem[0]}
+                  role="presentation"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    Promise.resolve(true)
+                      .then(() => {
+                        setTestPaperData((prev) => ({
+                          ...prev,
+                          testId: elem[0],
+                          testInfo: elem[1],
+                        }));
 
-                          return true;
+                        return true;
+                      })
+                      .then(() => {
+                        setIsTestPaper(true);
+                      });
+                  }}
+                >
+                  <span>{elem[1].testTitle}</span>
+
+                  <DeleteIcon
+                    onClick={() => {
+                      deleteTest({ testId: elem[0] })
+                        .then(() => {
+                          setIsRemoveSuccess((prev) => !prev);
                         })
                         .then(() => {
-                          setIsTestPaper(true);
+                          setIsTestPaper(false);
                         });
                     }}
-                  >
-                    <span>{elem[1].testTitle}</span>
-
-                    <DeleteIcon
-                      onClick={() => {
-                        deleteTest({ testId: elem[0] })
-                          .then(() => {
-                            setIsRemoveSuccess((prev) => !prev);
-                          })
-                          .then(() => {
-                            setIsTestPaper(false);
-                          });
-                      }}
-                    />
-                  </div>
-                ))
-              : null}
+                  />
+                </div>
+              ))
+            ) : (
+              <div className="m-2 text-center">
+                <p className="m-2">
+                  You do not have a test yet, To create a test{" "}
+                </p>
+                <p className="m-2">Click on top create test</p>
+              </div>
+            )}
           </div>
         )}
       </div>

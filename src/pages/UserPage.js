@@ -10,7 +10,7 @@ export default function UserPage() {
   return (
     <>
       <Header>
-        <div className="cursor-pointer p-2 lg:px-4 md:mx-2 text-gray-600 font-bold text-center border border-transparent rounded hover:bg-gray-100 hover:text-gray-700 transition-colors duration-300">
+        <div className="sm:block hidden cursor-pointer p-2 lg:px-4 md:mx-2 text-gray-600 font-bold text-center border border-transparent rounded hover:bg-gray-100 hover:text-gray-700 transition-colors duration-300">
           {currentUser && currentUser.email}
         </div>
         <button
