@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# <img src="https://images03.nicepage.com/c461c07a441a5d220e8feb1a/23d9857501965e9c94efaaca/jkjukl.png" alt="men" width="200" height=""> link to ["YOUR TEST"](your-test.vercel.app)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## **Project Description**
 
-## Available Scripts
+**YOUR TEST** is a free online software for creating surveys and questionnaires. **YOUR TEST** is only available as a web application. The app allows users to create and edit surveys online while collaborating with other users in real-time. The collected information can be automatically entered into a spreadsheet.
 
-In the project directory, you can run:
+- You need a account to make a **YOUR TEST**.
 
-### `npm start`
+- You can personalize your **YOUR TEST** with question types.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **YOUR TEST**differentiates itself from similar online software through its library of customization options.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- When creating your new form, you'll have the ability to select from a series of templates or design your very own.
 
-### `npm test`
+- With the Q&A format at the heart of **YOUR TEST**, the Workspace tool offers various question and response options, including multiple-choice.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- You can get even more sophisticated by using logic jumps that take users to different sections of the form depending on their answers. This is a great way to ask follow-up questions tied to specific answers. Using logic jumps can help users navigate through longer surveys more quickly and only answer pertinent questions.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## **Dependencies**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This section contains the entire technical stack that have used in the project.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- react
+- Wreact-router-dom
+- react-scripts
+- react-to-pdf
+- craco
+- headlessui/react
+- heroicons/react
+- firebase
+- axios
+- classnames
+- craco
+- firebase
+- formik
+- tailwindcss
+- uuid
+- web-vitals
+- yup
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## **Authors**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Anri Hunanyan**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- [Github Profile](https://github.com/Anri-H "Anri Hunanyan")
+- [Linkedin](https://www.linkedin.com/in/anri-h/ "Welcome")
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**David Matiashvili**
 
-## Learn More
+- [Github Profile](https://github.com/dav26072000 "David Matiashvili")
+- [Linkedin](https://www.linkedin.com/in/matiashvili/ "Welcome")
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Vahe Hovhannisyan**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [Github Profile](https://github.com/Vahe1209?tab=followers "Vahe Hovhannisyan")
+- [Linkedin](https://www.linkedin.com/in/vahe1209/ "Welcome")
