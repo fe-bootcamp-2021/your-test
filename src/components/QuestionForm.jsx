@@ -10,6 +10,7 @@ import {
 } from "../services/question.services";
 import SelectQuestion from "./SelectQuestion";
 import Popup from "./Popup";
+import hasDuplicates from "../helpers/arrayDuplicates";
 
 // const questionSection = classNames();
 
@@ -74,6 +75,13 @@ export default function QuestionForm({
         });
       }
     });
+    if (hasDuplicates(answerSection.answer)) {
+      throw setShowPopup({
+        isPopup: true,
+        massage: "You have re-answers",
+        isError: true,
+      });
+    }
     closeQuestionForm(false);
 
     changeQuestion
