@@ -32,7 +32,7 @@ export default function TextField({ labelText, name, type, ...attr }) {
       <label
         ref={labelRef}
         htmlFor={name}
-        className={`text-blue-700 hidden ${placeholderStyle}`}
+        className={`text-blue-700 ${placeholderStyle}`}
       >
         {labelText}
       </label>
@@ -40,7 +40,6 @@ export default function TextField({ labelText, name, type, ...attr }) {
         <Input
           onClick={handleStyle}
           className={`${textFieldStyle} ${placeholderStyle}`}
-          Placeholder={labelText}
           name={name}
           type={type}
           {...attr}
