@@ -25,13 +25,13 @@ export default function SelectQuestion({ setAnswerSection, answerSection }) {
     });
   };
 
-  const handleDelete = (val) => (e) => {
+  const handleDelete = (i) => (e) => {
+    e.stopPropagation();
+    answerSection.answer.splice(i, 1);
     setAnswerSection((prevState) => {
       return {
         ...prevState,
-        answer: answerSection.answer.filter((el) => {
-          return el !== val;
-        }),
+        answer: answerSection.answer,
       };
     });
   };
@@ -102,7 +102,7 @@ export default function SelectQuestion({ setAnswerSection, answerSection }) {
               style={{ width: "100%" }}
             />
             {answerSection.answer.length > 1 && (
-              <DeleteIcon onClick={handleDelete(e)} />
+              <DeleteIcon onClick={handleDelete(i)} />
             )}
           </div>
         );
