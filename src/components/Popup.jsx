@@ -16,7 +16,7 @@ export default function Popup({
   };
 
   const popupStyle = classNames({
-    "flex flex-col p-8 shadow-md hover:shodow-lg rounded-2xl fixed top-20 right-3": true,
+    "flex flex-col z-10 p-8 shadow-md hover:shodow-lg rounded-2xl fixed top-20 right-3": true,
     "bg-green-600": !isError,
     "bg-red-600": isError,
   });
