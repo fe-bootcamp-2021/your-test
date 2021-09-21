@@ -23,7 +23,7 @@
 This section contains the entire technical stack that have used in the project.
 
 - react
-- Wreact-router-dom
+- react-router-dom
 - react-scripts
 - react-to-pdf
 - craco
@@ -32,8 +32,6 @@ This section contains the entire technical stack that have used in the project.
 - firebase
 - axios
 - classnames
-- craco
-- firebase
 - formik
 - tailwindcss
 - uuid
