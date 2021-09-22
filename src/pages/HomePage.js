@@ -4,7 +4,7 @@ import HomeIcon from "../components/icons/HomeIcon";
 export default function HomePage() {
   return (
     <div>
-      <div className="md:flex items-center p-4 md:max-h-screen m-auto">
+      <div className="md:flex items-center p-4 md:h-screen m-auto">
         <HomeIcon />
         <AboutUs />
       </div>
