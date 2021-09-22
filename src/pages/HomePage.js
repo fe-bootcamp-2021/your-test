@@ -35,6 +35,14 @@ export default function HomePage() {
           >
             Anri Hunanyan
           </a>
+          <a
+            className="m-2"
+            rel="noreferrer"
+            target="_blank"
+            href="https://github.com/Khotsanyan"
+          >
+            Vladimir Khotsanyan
+          </a>
         </div>
       </div>
     </div>
